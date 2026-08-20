@@ -1,0 +1,35 @@
+package com.example.speakit
+
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.speakit.navigation.BottomNavbar
+import com.example.speakit.navigation.Screen
+import com.example.speakit.screens.Home
+import com.example.speakit.screens.Library
+import com.example.speakit.screens.Settings
+
+@Composable
+fun SpeakITApp() {
+    val navController = rememberNavController()
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = { BottomNavbar(navController) }
+    ) { innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = Screen.Home.route,
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            composable(Screen.Home.route) { Home() }
+            composable(Screen.Library.route) { Library() }
+            composable(Screen.Settings.route) { Settings() }
+        }
+    }
+}
