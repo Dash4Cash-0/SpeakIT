@@ -22,6 +22,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val _isUploading = MutableStateFlow(false)
     val isUploading: StateFlow<Boolean> = _isUploading
 
+    private val _transcript = MutableStateFlow<String?>(null)
+    val transcript: StateFlow<String?> = _transcript
+
+    private val _error = MutableStateFlow<String?>(null)
+    val error: StateFlow<String?> = _error
+
     private var recorder: MediaRecorder? = null
     private var outputFile: File? = null
 
@@ -66,16 +72,15 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         viewModelScope.launch {
             _isUploading.value = true
+            _error.value = null
             try {
                 val requestBody = file.asRequestBody("audio/mp4".toMediaTypeOrNull())
                 val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
 
                 val response = RetrofitInstance.api.uploadRecording(part)
-                // TODO: response now holds whatever your FastAPI endpoint returns
-                // (e.g. the Whisper transcription) — parse it and expose via a StateFlow
-                // once the backend response shape is defined.
+                _transcript.value = response.text
             } catch (e: Exception) {
-                // TODO: surface upload/network failures to the UI via a StateFlow
+                _error.value = e.message ?: "Upload failed"
             } finally {
                 _isUploading.value = false
             }

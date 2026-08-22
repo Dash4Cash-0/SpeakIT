@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,6 +25,7 @@ import com.example.speakit.viewmodel.HomeViewModel
 
 @Composable
 fun Home(viewModel: HomeViewModel = viewModel()) {
+    val transcription = viewModel.transcript.collectAsState().value
     val context = LocalContext.current
     val isRecording by viewModel.isRecording.collectAsState()
     val permissionLauncher = rememberLauncherForActivityResult(
@@ -37,6 +39,7 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
+        transcription?.let { Text(it) }
         Button(
             onClick = {
                 if (isRecording) {
