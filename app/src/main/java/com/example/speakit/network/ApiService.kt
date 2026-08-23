@@ -7,7 +7,7 @@ import retrofit2.http.Part
 
 data class TranscriptionResponse(val text: String)
 
-interface TranscriptionApi {
+interface ApiService {
     @Multipart
     @POST("transcribe")
     suspend fun uploadRecording(

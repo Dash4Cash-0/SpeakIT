@@ -87,6 +87,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    private fun translateTranscription() {
+
+    }
+
     override fun onCleared() {
         super.onCleared()
         recorder?.release()
