@@ -1,6 +1,7 @@
 package com.example.speakit.viewmodel
 
 import android.app.Application
+import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Build
 import androidx.lifecycle.AndroidViewModel
@@ -43,6 +44,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private var tempSourceLang: String = "English"
     private var tempTargetLang: String = "Italian"
+
+    private var mediaplayer: MediaPlayer? = null
 
     fun startRecording() {
         val context = getApplication<Application>()
@@ -141,9 +144,30 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     }
                 }
                 _speechFile.value = file
+                playSpeech()
 
             }catch (e: Exception){
                 _error.value = e.message ?: "Failed to playback audio"
+            }
+        }
+    }
+
+    private fun playSpeech(){
+        val file = _speechFile.value ?: return
+
+        mediaplayer?.release()
+        mediaplayer = MediaPlayer()
+
+        viewModelScope.launch {
+            _error.value = null
+            try {
+                withContext(Dispatchers.IO) {
+                    mediaplayer?.setDataSource(file.absolutePath)
+                    mediaplayer?.prepare()
+                }
+                mediaplayer?.start()
+            } catch (e: Exception) {
+                _error.value = e.message ?: "Failed to play audio"
             }
         }
     }
@@ -152,5 +176,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         super.onCleared()
         recorder?.release()
         recorder = null
+        mediaplayer?.release()
+        mediaplayer = null
     }
 }
