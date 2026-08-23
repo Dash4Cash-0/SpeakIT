@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.speakit.network.RetrofitInstance
+import com.example.speakit.network.TranslateRequest
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -25,11 +26,17 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val _transcript = MutableStateFlow<String?>(null)
     val transcript: StateFlow<String?> = _transcript
 
+    private val _translation = MutableStateFlow<String?>(null)
+    val translation: StateFlow<String?> = _translation
+
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
     private var recorder: MediaRecorder? = null
     private var outputFile: File? = null
+
+    private var tempSourceLang: String = "English"
+    private var tempTargetLang: String = "Italian"
 
     fun startRecording() {
         val context = getApplication<Application>()
@@ -65,6 +72,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         _isRecording.value = false
 
         uploadRecording()
+
     }
 
     private fun uploadRecording() {
@@ -79,6 +87,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
                 val response = RetrofitInstance.api.uploadRecording(part)
                 _transcript.value = response.text
+                translateText()
             } catch (e: Exception) {
                 _error.value = e.message ?: "Upload failed"
             } finally {
@@ -87,7 +96,22 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    private fun translateTranscription() {
+    private fun translateText() {
+
+        val text = _transcript.value ?: return
+
+        viewModelScope.launch {
+            _error.value = null
+            try {
+                val translate = TranslateRequest(text, tempSourceLang, tempTargetLang)
+                val response = RetrofitInstance.api.translateText(translate)
+                _translation.value = response.text
+
+            }catch (e: Exception){
+                _error.value = e.message ?: "Translation failed"
+            }
+
+        }
 
     }
 

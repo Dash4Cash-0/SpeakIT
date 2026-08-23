@@ -26,6 +26,7 @@ import com.example.speakit.viewmodel.HomeViewModel
 @Composable
 fun Home(viewModel: HomeViewModel = viewModel()) {
     val transcription by viewModel.transcript.collectAsState()
+    val translation by viewModel.translation.collectAsState()
     val error by viewModel.error.collectAsState()
     val context = LocalContext.current
     val isRecording by viewModel.isRecording.collectAsState()
@@ -41,6 +42,7 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
         transcription?.let { Text(it) }
+        translation?.let { Text(it) }
         error?.let { Text(it) }
         Button(
             onClick = {
