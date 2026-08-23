@@ -6,10 +6,13 @@ import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.speakit.network.RetrofitInstance
+import com.example.speakit.network.SpeechRequest
 import com.example.speakit.network.TranslateRequest
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -28,6 +31,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _translation = MutableStateFlow<String?>(null)
     val translation: StateFlow<String?> = _translation
+
+    private val _speechFile = MutableStateFlow<File?>(null)
+    val speechFile: StateFlow<File?> = _speechFile
 
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
@@ -106,6 +112,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 val translate = TranslateRequest(text, tempSourceLang, tempTargetLang)
                 val response = RetrofitInstance.api.translateText(translate)
                 _translation.value = response.text
+                fetchSpeech()
 
             }catch (e: Exception){
                 _error.value = e.message ?: "Translation failed"
@@ -113,6 +120,32 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         }
 
+    }
+
+    private fun fetchSpeech(){
+        val text = _translation.value ?: return
+        val context = getApplication<Application>()
+
+        viewModelScope.launch {
+            _error.value = null
+            try {
+                val speechReq = SpeechRequest(text)
+                val speechResponse = RetrofitInstance.api.getSpeech(speechReq)
+
+                val file = File(context.cacheDir, "speech_${System.currentTimeMillis()}.mp3")
+                withContext(Dispatchers.IO) {
+                    speechResponse.byteStream().use { input ->
+                        file.outputStream().use { output ->
+                            input.copyTo(output)
+                        }
+                    }
+                }
+                _speechFile.value = file
+
+            }catch (e: Exception){
+                _error.value = e.message ?: "Failed to playback audio"
+            }
+        }
     }
 
     override fun onCleared() {

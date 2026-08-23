@@ -1,10 +1,12 @@
 package com.example.speakit.network
 
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Streaming
 
 data class TextResponse(val text: String)
 data class TranslateRequest(
@@ -13,6 +15,7 @@ data class TranslateRequest(
     val targetLanguage: String
     )
 
+data class SpeechRequest(val text: String)
 
 interface ApiService {
     @Multipart
@@ -26,4 +29,8 @@ interface ApiService {
         @Body request: TranslateRequest
 
     ): TextResponse
+
+    @Streaming
+    @POST("speech")
+    suspend fun getSpeech(@Body request: SpeechRequest): ResponseBody
 }
