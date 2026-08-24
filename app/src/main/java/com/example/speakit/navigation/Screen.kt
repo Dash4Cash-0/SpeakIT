@@ -1,13 +1,10 @@
 package com.example.speakit.navigation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Inventory
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.annotation.DrawableRes
+import com.example.speakit.R
 
-sealed class Screen (val route: String, val label: String, val icon: ImageVector) {
-    object Home : Screen("home", "Home", Icons.Default.Home)
-    object Library : Screen("library", "Library", Icons.Default.Inventory)
-    object Settings : Screen("settings", "Settings", Icons.Default.Settings)
+sealed class Screen(val route: String, val label: String, @param:DrawableRes val iconRes: Int) {
+    object Home : Screen("home", "Home", R.drawable.home_color)
+    object Library : Screen("library", "Library", R.drawable.library_color)
+    object Settings : Screen("settings", "Settings", R.drawable.settings_color)
 }
