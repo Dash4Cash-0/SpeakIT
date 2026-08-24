@@ -17,10 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.speakit.R
 import com.example.speakit.viewmodel.HomeViewModel
 
 @Composable
@@ -64,7 +67,7 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
             }
         ) {
             Icon(
-                imageVector = if (isRecording) Icons.Default.Stop else Icons.Default.Mic,
+                painter = if (isRecording) rememberVectorPainter(Icons.Default.Stop) else painterResource(R.drawable.mic_color),
                 contentDescription = if (isRecording) "Stop recording" else "Start recording"
             )
         }
