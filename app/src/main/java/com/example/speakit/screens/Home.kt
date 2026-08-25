@@ -61,10 +61,9 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                 containerColor = MaterialTheme.colorScheme.surfaceVariant
             ),
             modifier = Modifier
-                .size(150.dp)
                 .align(alignment = Alignment.Center)
         ) {
-            Text(text = "TESTING",
+            Text(text = "What do you want translated today?",
                 modifier = Modifier.padding(16.dp),
                 textAlign = TextAlign.Center
             )
