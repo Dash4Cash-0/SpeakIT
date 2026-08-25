@@ -53,23 +53,23 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
     Box(
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
+        ElevatedCard(
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 6.dp
+            ),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant
+            ),
+            modifier = Modifier
+                .size(150.dp)
+                .align(alignment = Alignment.Center)
+        ) {
+            Text(text = "TESTING",
+                modifier = Modifier.padding(16.dp),
+                textAlign = TextAlign.Center
+            )
+        }
         Column {
-            ElevatedCard(
-                elevation = CardDefaults.cardElevation(
-                    defaultElevation = 6.dp
-                ),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
-                ),
-                modifier = Modifier
-                    .size(150.dp)
-                    .align(alignment = Alignment.CenterHorizontally)
-            ) {
-                Text(text = "TESTING",
-                    modifier = Modifier.padding(16.dp),
-                    textAlign = TextAlign.Center
-                )
-            }
             transcription?.let { Text(it) }
             translation?.let { Text(it) }
             error?.let { Text(it) }
