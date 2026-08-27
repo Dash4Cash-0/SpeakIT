@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.speakit.R
@@ -69,12 +70,12 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             ) {
-                Text(text = "PLACEHOLDER",
+                Text(text = "\uD83C\uDDEC\uD83C\uDDE7", fontSize = 40.sp,
                     modifier = Modifier.padding(16.dp))
             }
             Icon(Icons.AutoMirrored.Filled.ArrowForward,
                 contentDescription = null,
-                modifier = Modifier.padding(top = 15.dp))
+                modifier = Modifier.padding(top = 30.dp))
             ElevatedCard(
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 6.dp
@@ -83,7 +84,7 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             ) {
-                Text(text = "PLACEHOLDER",
+                Text(text = "\uD83C\uDDEE\uD83C\uDDF9", fontSize = 40.sp,
                     modifier = Modifier.padding(16.dp))
             }
         }
