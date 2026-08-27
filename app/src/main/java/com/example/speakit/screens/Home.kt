@@ -66,7 +66,7 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                     defaultElevation = 6.dp
                 ),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color.DarkGray
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             ) {
                 Text(text = "PLACEHOLDER",
@@ -80,7 +80,7 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                     defaultElevation = 6.dp
                 ),
                 colors = CardDefaults.cardColors(
-                    containerColor = Color.DarkGray
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             ) {
                 Text(text = "PLACEHOLDER",
