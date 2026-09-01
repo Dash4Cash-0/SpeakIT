@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 
 
 @Composable
-fun FlipCard() {
+fun FlipCard(placeholderText: String, transcription: String, translation: String) {
     var rotated by remember { mutableStateOf(false) }
     val rotation by animateFloatAsState(
         targetValue = if (rotated) 180f else 0f,
