@@ -98,13 +98,20 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
             modifier = Modifier
                 .align(alignment = Alignment.Center)
         ) {
-            Text(text = "What do you want translated today?",
+            val hasTranscription = !transcription.isNullOrBlank()
+            Text(
+                text = transcription?.takeUnless { it.isBlank() }
+                    ?: "What do you want translated today?",
+                color = if (hasTranscription) {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                },
                 modifier = Modifier.padding(16.dp),
                 textAlign = TextAlign.Center
             )
         }
         Column {
-            transcription?.let { Text(it) }
             translation?.let { Text(it) }
             error?.let { Text(it) }
         }

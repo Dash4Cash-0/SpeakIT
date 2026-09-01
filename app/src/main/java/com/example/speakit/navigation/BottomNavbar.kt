@@ -50,7 +50,7 @@ fun BottomNavbar(navController: NavController) {
                         tint = Color.Unspecified
                     )
                 },
-                label = { Text(screen.label) }
+                label = { Text(screen.label, color = Color.Black) }
             )
         }
     }
