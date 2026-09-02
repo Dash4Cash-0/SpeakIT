@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,6 +44,7 @@ import com.example.speakit.viewmodel.HomeViewModel
 @Composable
 fun Home(viewModel: HomeViewModel = viewModel()) {
     val transcription by viewModel.transcript.collectAsState()
+    val currentUser = "Test User"
     val translation by viewModel.translation.collectAsState()
     val error by viewModel.error.collectAsState()
     val context = LocalContext.current
@@ -58,34 +60,38 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
     Box(
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            ElevatedCard(
-                elevation = CardDefaults.cardElevation(
-                    defaultElevation = 6.dp
-                ),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
-                )
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Text(text = "Hello, $currentUser", fontSize = 40.sp, fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(16.dp))
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "\uD83C\uDDEC\uD83C\uDDE7", fontSize = 40.sp,
-                    modifier = Modifier.padding(16.dp))
-            }
-            Icon(Icons.AutoMirrored.Filled.ArrowForward,
-                contentDescription = null,
-                modifier = Modifier.padding(top = 30.dp))
-            ElevatedCard(
-                elevation = CardDefaults.cardElevation(
-                    defaultElevation = 6.dp
-                ),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
-                )
-            ) {
-                Text(text = "\uD83C\uDDEE\uD83C\uDDF9", fontSize = 40.sp,
-                    modifier = Modifier.padding(16.dp))
+                ElevatedCard(
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 6.dp
+                    ),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                ) {
+                    Text(text = "\uD83C\uDDEC\uD83C\uDDE7", fontSize = 40.sp,
+                        modifier = Modifier.padding(16.dp))
+                }
+                Icon(Icons.AutoMirrored.Filled.ArrowForward,
+                    contentDescription = null,
+                    modifier = Modifier.padding(top = 30.dp))
+                ElevatedCard(
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 6.dp
+                    ),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                ) {
+                    Text(text = "\uD83C\uDDEE\uD83C\uDDF9", fontSize = 40.sp,
+                        modifier = Modifier.padding(16.dp))
+                }
             }
         }
         ElevatedCard(
