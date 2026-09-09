@@ -2,9 +2,12 @@ package com.example.speakit.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val BgColor = Color(0xFFf3f2f2)
+val CardSurface = Color(0xFFf8f4f4)
+val MutedSurface = Color(0xFFeae9e9)
+val GrayText = Color(0xFF201e1d)
+val AccentColor = Color(0xFFec3013)
+val DividerColor = Color(0xFF201e1d)
 
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
