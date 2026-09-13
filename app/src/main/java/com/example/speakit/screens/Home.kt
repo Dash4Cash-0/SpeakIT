@@ -4,6 +4,9 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,6 +32,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -136,6 +140,18 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                 ) {
                     Text(text = "Tap and say a sentence")
                     //translation?.let { Text(it) }
+                    val micButtonScale by animateFloatAsState(
+                        targetValue = if (isRecording) 0.9f else 1f,
+                        label = "micButtonScale"
+                    )
+                    val micButtonElevation by animateDpAsState(
+                        targetValue = if (isRecording) 0.dp else 8.dp,
+                        label = "micButtonElevation"
+                    )
+                    val micButtonColor by animateColorAsState(
+                        targetValue = if (isRecording) Color(0xFFB71C1C) else Color.Red,
+                        label = "micButtonColor"
+                    )
                     Button(
                         onClick = {
                             if (isRecording) {
@@ -156,16 +172,21 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                         },
                         modifier = Modifier
                             .padding(bottom = 5.dp)
-                            .size(60.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                            .size(60.dp)
+                            .graphicsLayer(scaleX = micButtonScale, scaleY = micButtonScale),
+                        colors = ButtonDefaults.buttonColors(containerColor = micButtonColor),
                         border = BorderStroke(1.dp, Color.Red),
-                        contentPadding = PaddingValues(0.dp)
+                        contentPadding = PaddingValues(0.dp),
+                        elevation = ButtonDefaults.buttonElevation(
+                            defaultElevation = micButtonElevation,
+                            pressedElevation = 0.dp
+                        )
                     ) {
                         Icon(
                             painter = if (isRecording) rememberVectorPainter(Icons.Default.Stop) else painterResource(R.drawable.mic_color),
                             contentDescription = if (isRecording) "Stop recording" else "Start recording",
                             tint = Color.Unspecified,
-                            modifier = Modifier.size(20.dp)
+                            modifier = Modifier.size(25.dp)
                         )
 
                 }
