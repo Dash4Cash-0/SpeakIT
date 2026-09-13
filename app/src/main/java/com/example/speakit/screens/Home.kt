@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.Alignment
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
@@ -44,7 +46,6 @@ import com.example.speakit.viewmodel.HomeViewModel
 @Composable
 fun Home(viewModel: HomeViewModel = viewModel()) {
     val transcription by viewModel.transcript.collectAsState()
-    val currentUser = "Test User"
     val translation by viewModel.translation.collectAsState()
     val error by viewModel.error.collectAsState()
     val context = LocalContext.current
@@ -61,8 +62,18 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Hello, $currentUser", fontSize = 40.sp, fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(16.dp))
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth().padding(10.dp)
+            ) {
+                Text(text = "SpeakIT", fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                Text(text = "Day 12", fontSize = 12.sp, fontWeight = FontWeight.Bold,
+                    color = Color(0xFFD32F2F),
+                    modifier = Modifier.
+                    background(color = Color(0xFFFFCDD2).copy(alpha = 0.5f), shape = CircleShape)
+                        .padding(horizontal = 8.dp))
+
+            }
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier.fillMaxWidth()
@@ -75,10 +86,30 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                         containerColor = MaterialTheme.colorScheme.surfaceVariant
                     )
                 ) {
-                    Text(text = "\uD83C\uDDEC\uD83C\uDDE7", fontSize = 40.sp,
-                        modifier = Modifier.padding(16.dp))
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(10.dp)
+                    ) {
+                        Text(text = "\uD83C\uDDEC\uD83C\uDDE7 English", fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black,
+                            modifier = Modifier.padding(4.dp))
+                        Icon(Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null,
+                            tint = Color(0xFFD32F2F),
+                            modifier = Modifier
+                                .background(color = Color(0xFFFFCDD2).copy(alpha = 0.5f), shape = CircleShape)
+                                .padding(8.dp)
+                                .size(15.dp))
+                        Text(text = "Italian \uD83C\uDDEE\uD83C\uDDF9", fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black,
+                            modifier = Modifier.padding(4.dp))
+                    }
+
                 }
-                Icon(Icons.AutoMirrored.Filled.ArrowForward,
+                /*Icon(Icons.AutoMirrored.Filled.ArrowForward,
                     contentDescription = null,
                     modifier = Modifier.padding(top = 30.dp))
                 ElevatedCard(
@@ -91,7 +122,7 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                 ) {
                     Text(text = "\uD83C\uDDEE\uD83C\uDDF9", fontSize = 40.sp,
                         modifier = Modifier.padding(16.dp))
-                }
+                }*/
             }
         }
         ElevatedCard(
