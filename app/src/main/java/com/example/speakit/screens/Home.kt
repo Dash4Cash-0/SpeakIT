@@ -9,6 +9,7 @@ import androidx.compose.animation.animateColorAsState
 //import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -30,6 +31,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -131,6 +135,38 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                         textAlign = TextAlign.Center
                     )
                 }
+            var expanded by remember { mutableStateOf(false) }
+            ElevatedCard(
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = 6.dp
+                ),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color(0xFFf8f4f4)
+                ),
+                modifier = Modifier.fillMaxWidth()
+                    .padding(top = 15.dp)
+                    .clickable(
+                        onClick = {expanded = !expanded}
+                    )
+
+            ) {
+                Column(
+
+                ) {
+                    Text(
+                        text = "Also try * X Forms",
+                        modifier = Modifier.padding(8.dp)
+                    )
+                    if (expanded) {
+                        Text(text = "Example 1")
+                        Text(text = "Example 2")
+                        Text(text = "Example 3")
+                        Text(text = "Example 4")
+                        Text(text = "Example 5")
+                    }
+                }
+
+            }
                 /*Column {
                     translation?.let { Text(it) }
                     error?.let { Text(it) }
