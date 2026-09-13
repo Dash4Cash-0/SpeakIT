@@ -5,8 +5,8 @@ import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.animateFloatAsState
+//import androidx.compose.animation.core.animateDpAsState
+//import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -63,7 +63,7 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
         ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth().padding(10.dp)
+                modifier = Modifier.fillMaxWidth().padding(8.dp)
             ) {
                 Text(text = "SpeakIT", fontSize = 15.sp, fontWeight = FontWeight.Bold)
                 Text(text = "Day 12", fontSize = 12.sp, fontWeight = FontWeight.Bold,
@@ -116,6 +116,7 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                     colors = CardDefaults.cardColors(
                         containerColor = Color(0xFFf8f4f4)
                     ),
+                    modifier = Modifier.fillMaxWidth().weight(1f).padding(top = 15.dp)
                 ) {
                     val hasTranscription = !transcription.isNullOrBlank()
                     Text(
@@ -140,7 +141,7 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                 ) {
                     Text(text = "Tap and say a sentence")
                     //translation?.let { Text(it) }
-                    val micButtonScale by animateFloatAsState(
+                    /*val micButtonScale by animateFloatAsState(
                         targetValue = if (isRecording) 0.9f else 1f,
                         label = "micButtonScale"
                     )
@@ -151,7 +152,7 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                     val micButtonColor by animateColorAsState(
                         targetValue = if (isRecording) Color(0xFFB71C1C) else Color.Red,
                         label = "micButtonColor"
-                    )
+                    )*/
                     Button(
                         onClick = {
                             if (isRecording) {
@@ -172,13 +173,13 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                         },
                         modifier = Modifier
                             .padding(bottom = 5.dp)
-                            .size(60.dp)
-                            .graphicsLayer(scaleX = micButtonScale, scaleY = micButtonScale),
-                        colors = ButtonDefaults.buttonColors(containerColor = micButtonColor),
+                            .size(60.dp),
+                            //.graphicsLayer(scaleX = micButtonScale, scaleY = micButtonScale),
+                        //colors = ButtonDefaults.buttonColors(containerColor = micButtonColor),
                         border = BorderStroke(1.dp, Color.Red),
                         contentPadding = PaddingValues(0.dp),
                         elevation = ButtonDefaults.buttonElevation(
-                            defaultElevation = micButtonElevation,
+                            //defaultElevation = micButtonElevation,
                             pressedElevation = 0.dp
                         )
                     ) {
