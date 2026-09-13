@@ -9,6 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -57,11 +58,8 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
             viewModel.startRecording()
         }
     }
-
-    Box(
-        modifier = Modifier.fillMaxSize().padding(16.dp)
-    ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.fillMaxWidth().padding(16.dp)
+        ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth().padding(10.dp)
@@ -83,7 +81,7 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                         defaultElevation = 6.dp
                     ),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                        containerColor = Color(0xFFf8f4f4)
                     )
                 ) {
                     Row(
@@ -109,79 +107,71 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                     }
 
                 }
-                /*Icon(Icons.AutoMirrored.Filled.ArrowForward,
-                    contentDescription = null,
-                    modifier = Modifier.padding(top = 30.dp))
+            }
                 ElevatedCard(
                     elevation = CardDefaults.cardElevation(
                         defaultElevation = 6.dp
                     ),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant
-                    )
+                        containerColor = Color(0xFFf8f4f4)
+                    ),
                 ) {
-                    Text(text = "\uD83C\uDDEE\uD83C\uDDF9", fontSize = 40.sp,
-                        modifier = Modifier.padding(16.dp))
+                    val hasTranscription = !transcription.isNullOrBlank()
+                    Text(
+                        text = transcription?.takeUnless { it.isBlank() }
+                            ?: "What do you want translated today?",
+                        color = if (hasTranscription) {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                        },
+                        modifier = Modifier.padding(16.dp),
+                        textAlign = TextAlign.Center
+                    )
+                }
+                /*Column {
+                    translation?.let { Text(it) }
+                    error?.let { Text(it) }
                 }*/
-            }
-        }
-        ElevatedCard(
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 6.dp
-            ),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant
-            ),
-            modifier = Modifier
-                .align(alignment = Alignment.Center)
-        ) {
-            val hasTranscription = !transcription.isNullOrBlank()
-            Text(
-                text = transcription?.takeUnless { it.isBlank() }
-                    ?: "What do you want translated today?",
-                color = if (hasTranscription) {
-                    MaterialTheme.colorScheme.onSurfaceVariant
-                } else {
-                    MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
-                },
-                modifier = Modifier.padding(16.dp),
-                textAlign = TextAlign.Center
-            )
-        }
-        Column {
-            translation?.let { Text(it) }
-            error?.let { Text(it) }
-        }
-        Button(
-            onClick = {
-                if (isRecording) {
-                    viewModel.stopRecording()
-                    return@Button
-                }
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth().padding(8.dp)
+                ) {
+                    Text(text = "Tap and say a sentence")
+                    //translation?.let { Text(it) }
+                    Button(
+                        onClick = {
+                            if (isRecording) {
+                                viewModel.stopRecording()
+                                return@Button
+                            }
 
-                val hasPermission = ContextCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.RECORD_AUDIO
-                ) == PackageManager.PERMISSION_GRANTED
+                            val hasPermission = ContextCompat.checkSelfPermission(
+                                context,
+                                Manifest.permission.RECORD_AUDIO
+                            ) == PackageManager.PERMISSION_GRANTED
 
-                if (hasPermission) {
-                    viewModel.startRecording()
-                } else {
-                    permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                            if (hasPermission) {
+                                viewModel.startRecording()
+                            } else {
+                                permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                            }
+                        },
+                        modifier = Modifier
+                            .padding(bottom = 5.dp)
+                            .size(60.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                        border = BorderStroke(1.dp, Color.Red),
+                        contentPadding = PaddingValues(0.dp)
+                    ) {
+                        Icon(
+                            painter = if (isRecording) rememberVectorPainter(Icons.Default.Stop) else painterResource(R.drawable.mic_color),
+                            contentDescription = if (isRecording) "Stop recording" else "Start recording",
+                            tint = Color.Unspecified,
+                            modifier = Modifier.size(20.dp)
+                        )
+
                 }
-            },
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 16.dp)
-                .size(75.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-            border = BorderStroke(1.dp, Color.Blue)
-        ) {
-            Icon(
-                painter = if (isRecording) rememberVectorPainter(Icons.Default.Stop) else painterResource(R.drawable.mic_color),
-                contentDescription = if (isRecording) "Stop recording" else "Start recording",
-                tint = Color.Unspecified
-            )
+                 }
         }
-    }
 }
