@@ -20,7 +20,6 @@ import com.example.speakit.screens.Settings
 @Composable
 fun SpeakITApp() {
     val navController = rememberNavController()
-    //val brush = Brush.verticalGradient(listOf(Color(0xFF389C27), Color(0xFFD5E6DF)))
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),

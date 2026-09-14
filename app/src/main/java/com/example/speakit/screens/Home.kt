@@ -98,10 +98,10 @@ fun HomeContent(
     isRecording: Boolean,
     onMicClick: () -> Unit
 ) {
-    val sentenceForms = mutableListOf(
-        "Example Sentence 1",
-        "Example Sentence Number 2",
-        "Example Sentence Again")
+        val sentenceForms = mutableListOf(
+            "Example Sentence 1",
+            "Example Sentence Number 2",
+            "Example Sentence Again")
 
         Column(modifier = Modifier.fillMaxWidth().padding(16.dp)
         ) {
