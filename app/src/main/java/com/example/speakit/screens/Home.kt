@@ -5,8 +5,8 @@ import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateColorAsState
-//import androidx.compose.animation.core.animateDpAsState
-//import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -42,18 +42,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.speakit.R
+import com.example.speakit.ui.theme.SpeakITTheme
 import com.example.speakit.viewmodel.HomeViewModel
 
 @Composable
 fun Home(viewModel: HomeViewModel = viewModel()) {
     val transcription by viewModel.transcript.collectAsState()
-    val translation by viewModel.translation.collectAsState()
-    val error by viewModel.error.collectAsState()
+    //val translation by viewModel.translation.collectAsState()
+    //val error by viewModel.error.collectAsState()
     val context = LocalContext.current
     val isRecording by viewModel.isRecording.collectAsState()
     val permissionLauncher = rememberLauncherForActivityResult(
@@ -63,6 +65,40 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
             viewModel.startRecording()
         }
     }
+
+    HomeContent(
+        transcription = transcription,
+        isRecording = isRecording,
+        onMicClick = {
+            if (isRecording) {
+                viewModel.stopRecording()
+            } else {
+                val hasPermission = ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.RECORD_AUDIO
+                ) == PackageManager.PERMISSION_GRANTED
+
+                if (hasPermission) {
+                    viewModel.startRecording()
+                } else {
+                    permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                }
+            }
+        }
+    )
+}
+
+@Composable
+fun HomeContent(
+    transcription: String?,
+    isRecording: Boolean,
+    onMicClick: () -> Unit
+) {
+    val sentenceForms = mutableListOf(
+        "Example Sentence 1",
+        "Example Sentence Number 2",
+        "Example Sentence Again")
+
         Column(modifier = Modifier.fillMaxWidth().padding(16.dp)
         ) {
             Row(
@@ -154,7 +190,7 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
 
                 ) {
                     Text(
-                        text = "Also try * X Forms",
+                        text = "Also try * ${sentenceForms.size} Forms",
                         modifier = Modifier.padding(8.dp)
                     )
                     if (expanded) {
@@ -175,9 +211,10 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth().padding(8.dp)
                 ) {
-                    Text(text = "Tap and say a sentence")
+                    Text(text = "Tap and say a sentence",
+                        modifier = Modifier.padding(top = 20.dp) )
                     //translation?.let { Text(it) }
-                    /*val micButtonScale by animateFloatAsState(
+                    val micButtonScale by animateFloatAsState(
                         targetValue = if (isRecording) 0.9f else 1f,
                         label = "micButtonScale"
                     )
@@ -188,34 +225,18 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                     val micButtonColor by animateColorAsState(
                         targetValue = if (isRecording) Color(0xFFB71C1C) else Color.Red,
                         label = "micButtonColor"
-                    )*/
+                    )
                     Button(
-                        onClick = {
-                            if (isRecording) {
-                                viewModel.stopRecording()
-                                return@Button
-                            }
-
-                            val hasPermission = ContextCompat.checkSelfPermission(
-                                context,
-                                Manifest.permission.RECORD_AUDIO
-                            ) == PackageManager.PERMISSION_GRANTED
-
-                            if (hasPermission) {
-                                viewModel.startRecording()
-                            } else {
-                                permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-                            }
-                        },
+                        onClick = onMicClick,
                         modifier = Modifier
                             .padding(bottom = 5.dp)
-                            .size(60.dp),
-                            //.graphicsLayer(scaleX = micButtonScale, scaleY = micButtonScale),
-                        //colors = ButtonDefaults.buttonColors(containerColor = micButtonColor),
+                            .size(60.dp)
+                            .graphicsLayer(scaleX = micButtonScale, scaleY = micButtonScale),
+                        colors = ButtonDefaults.buttonColors(containerColor = micButtonColor),
                         border = BorderStroke(1.dp, Color.Red),
                         contentPadding = PaddingValues(0.dp),
                         elevation = ButtonDefaults.buttonElevation(
-                            //defaultElevation = micButtonElevation,
+                            defaultElevation = micButtonElevation,
                             pressedElevation = 0.dp
                         )
                     ) {
@@ -229,4 +250,28 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
                 }
                  }
         }
+}
+
+@Preview(showBackground = true, apiLevel = 36)
+@Composable
+fun HomePreview() {
+    SpeakITTheme {
+        HomeContent(
+            transcription = null,
+            isRecording = false,
+            onMicClick = {}
+        )
+    }
+}
+
+@Preview(showBackground = true, apiLevel = 36, name = "Recording")
+@Composable
+fun HomeRecordingPreview() {
+    SpeakITTheme {
+        HomeContent(
+            transcription = "Buongiorno, come stai?",
+            isRecording = true,
+            onMicClick = {}
+        )
+    }
 }
