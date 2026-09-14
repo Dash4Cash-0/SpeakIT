@@ -28,8 +28,8 @@ fun BottomNavbar(navController: NavController) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth()
-            .padding(10.dp)
-            .clip(RoundedCornerShape(24.dp))
+            .padding(6.dp)
+            .clip(RoundedCornerShape(12.dp))
     ) {
         bottomNavScreens.forEach { screen ->
             val isSelected = screen.route == currentRoute
@@ -48,7 +48,7 @@ fun BottomNavbar(navController: NavController) {
                 }
             ) {
                 Text(screen.label,
-                    modifier = Modifier.padding(12.dp))
+                    modifier = Modifier.padding(2.dp))
             }
         }
     }
