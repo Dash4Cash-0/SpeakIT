@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -41,7 +42,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,7 +50,6 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.speakit.R
 import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.ui.theme.SpeakITTheme
 import com.example.speakit.viewmodel.HomeViewModel
@@ -191,10 +190,11 @@ fun HomeContent(
 
             ) {
                 Column(
+                    modifier = Modifier.padding(5.dp)
 
                 ) {
                     Text(
-                        text = "Also try * ${sentenceForms.size} Forms",
+                        text = "Also try \u2022 ${sentenceForms.size} Forms",
                         modifier = Modifier.padding(8.dp)
                     )
                     if (expanded) {
@@ -227,7 +227,7 @@ fun HomeContent(
                         label = "micButtonElevation"
                     )
                     val micButtonColor by animateColorAsState(
-                        targetValue = if (isRecording) Color(0xFFB71C1C) else Color.Red,
+                        targetValue = if (isRecording) Color(0xFFB71C1C) else Color(0xFFdd2b0f),
                         label = "micButtonColor"
                     )
                     Button(
@@ -245,9 +245,8 @@ fun HomeContent(
                         )
                     ) {
                         Icon(
-                            painter = if (isRecording) rememberVectorPainter(Icons.Default.Stop) else painterResource(R.drawable.mic_color),
+                            painter = if (isRecording) rememberVectorPainter(Icons.Default.Stop) else rememberVectorPainter(Icons.Default.Mic),
                             contentDescription = if (isRecording) "Stop recording" else "Start recording",
-                            tint = Color.Unspecified,
                             modifier = Modifier.size(25.dp)
                         )
 
