@@ -1,9 +1,12 @@
 package com.example.speakit.navigation
 
+
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
@@ -13,6 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -27,7 +32,8 @@ fun BottomNavbar(navController: NavController) {
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth().shadow(elevation = 2.dp)
+            .border(width = 1.dp, color = Color.Gray, shape = CircleShape)
             .padding(6.dp)
             .clip(RoundedCornerShape(12.dp))
     ) {
@@ -35,7 +41,7 @@ fun BottomNavbar(navController: NavController) {
             val isSelected = screen.route == currentRoute
             ElevatedButton(
                 colors = ButtonDefaults.elevatedButtonColors(
-                    containerColor = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface
+                    containerColor = if (isSelected) Color(0xFFffe0d9) else MaterialTheme.colorScheme.surface
                 ),
                 onClick = {
                     navController.navigate(screen.route) {
@@ -48,7 +54,7 @@ fun BottomNavbar(navController: NavController) {
                 }
             ) {
                 Text(screen.label,
-                    modifier = Modifier.padding(2.dp))
+                    color = Color(0xFFae1800))
             }
         }
     }
