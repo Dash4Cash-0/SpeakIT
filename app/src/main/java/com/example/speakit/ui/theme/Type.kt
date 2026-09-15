@@ -32,11 +32,16 @@ val ArchivoFontFamily = FontFamily(
         variationSettings = FontVariation.Settings(FontVariation.weight(700))
     ),
     Font(
+        R.font.archivo,
+        weight = FontWeight.ExtraBold,
+        variationSettings = FontVariation.Settings(FontVariation.weight(800))
+    ),
+    Font(
         R.font.archivo_italic,
         weight = FontWeight.Normal,
         style = FontStyle.Italic,
         variationSettings = FontVariation.Settings(FontVariation.weight(400))
-    )
+    ),
 )
 
 private val baseTypography = Typography()
