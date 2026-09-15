@@ -1,22 +1,19 @@
 package com.example.speakit.navigation
 
 
-import androidx.compose.foundation.border
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ElevatedButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -32,16 +29,15 @@ fun BottomNavbar(navController: NavController) {
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth().shadow(elevation = 2.dp)
-            .border(width = 1.dp, color = Color.Gray, shape = CircleShape)
+        modifier = Modifier.fillMaxWidth()
             .padding(6.dp)
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(8.dp))
     ) {
         bottomNavScreens.forEach { screen ->
             val isSelected = screen.route == currentRoute
-            ElevatedButton(
+            Button(
                 colors = ButtonDefaults.elevatedButtonColors(
-                    containerColor = if (isSelected) Color(0xFFffe0d9) else MaterialTheme.colorScheme.surface
+                    containerColor = if (isSelected) Color(0xFFffe0d9) else Color(0xFFf3f2f2)
                 ),
                 onClick = {
                     navController.navigate(screen.route) {
@@ -53,8 +49,8 @@ fun BottomNavbar(navController: NavController) {
                     }
                 }
             ) {
-                Text(screen.label,
-                    color = Color(0xFFae1800))
+                Text(screen.label.uppercase(),
+                    color = if(isSelected) Color(0xFFae1800) else Color(0xFF201e1d))
             }
         }
     }
