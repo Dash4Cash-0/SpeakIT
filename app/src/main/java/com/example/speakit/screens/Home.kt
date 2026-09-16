@@ -161,17 +161,26 @@ fun HomeContent(
                     ),
                     modifier = Modifier.fillMaxWidth().weight(1f).padding(top = 15.dp)
                 ) {
+                    Text(text = "YOU SAID",
+                        modifier = Modifier
+                            .padding(top = 12.dp)
+                            .padding(start = 15.dp),
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 1.5.sp)
                     val hasTranscription = !transcription.isNullOrBlank()
                     Text(
                         text = transcription?.takeUnless { it.isBlank() }
-                            ?: "What do you want translated today?",
+                            ?: if (isRecording) "Listening..." else "What do you want translated today?",
                         color = if (hasTranscription) {
-                            MaterialTheme.colorScheme.onSurfaceVariant
+                            Color.Black
                         } else {
-                            MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                            Color.Black.copy(alpha = 0.6f)
                         },
                         modifier = Modifier.padding(16.dp),
-                        textAlign = TextAlign.Center
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        textAlign = TextAlign.Start
                     )
                 }
             var expanded by remember { mutableStateOf(false) }
@@ -215,7 +224,7 @@ fun HomeContent(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth().padding(top = 20.dp)
                 ) {
-                    Text(text = "Tap and say a sentence",
+                    Text(text = if(isRecording)" Listening - Tap to stop" else "Tap and say a sentence",
                         modifier = Modifier.padding(top = 20.dp) )
                     //translation?.let { Text(it) }
                     val micButtonScale by animateFloatAsState(
