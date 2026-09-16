@@ -206,11 +206,9 @@ fun HomeContent(
                         modifier = Modifier.padding(8.dp)
                     )
                     if (expanded) {
-                        Text(text = "Example 1")
-                        Text(text = "Example 2")
-                        Text(text = "Example 3")
-                        Text(text = "Example 4")
-                        Text(text = "Example 5")
+                        sentenceForms.forEach { sentence ->
+                            Text(sentence)
+                        }
                     }
                 }
 
