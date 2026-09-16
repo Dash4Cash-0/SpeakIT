@@ -162,8 +162,7 @@ fun HomeContent(
                 ) {
                     Text(text = "YOU SAID",
                         modifier = Modifier
-                            .padding(top = 12.dp)
-                            .padding(start = 15.dp),
+                            .padding(top = 12.dp, start = 15.dp),
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 1.5.sp)
