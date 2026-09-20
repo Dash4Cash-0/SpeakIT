@@ -45,9 +45,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private var recorder: MediaRecorder? = null
     private var outputFile: File? = null
 
-    private var tempSourceLang: String = "English"
-    private var tempTargetLang: String = "Italian"
-
     private var mediaplayer: MediaPlayer? = null
 
     private val repo = UserPreferenceRepo(application)
@@ -117,11 +114,13 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private fun translateText() {
 
         val text = _transcript.value ?: return
+        val source = sourceLanguage.value ?: return
+        val target = targetLanguage.value ?: return
 
         viewModelScope.launch {
             _error.value = null
             try {
-                val translate = TranslateRequest(text, tempSourceLang, tempTargetLang)
+                val translate = TranslateRequest(text, source, target)
                 val response = RetrofitInstance.api.translateText(translate)
                 _translation.value = response.text
                 fetchSpeech()
