@@ -58,6 +58,8 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
     val transcription by viewModel.transcript.collectAsState()
     //val translation by viewModel.translation.collectAsState()
     //val error by viewModel.error.collectAsState()
+    val sourceLanguage by viewModel.sourceLanguage.collectAsState()
+    val targetLanguage by viewModel.targetLanguage.collectAsState()
     val context = LocalContext.current
     val isRecording by viewModel.isRecording.collectAsState()
     val permissionLauncher = rememberLauncherForActivityResult(
@@ -71,6 +73,8 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
     HomeContent(
         transcription = transcription,
         isRecording = isRecording,
+        sourceLanguage = sourceLanguage,
+        targetLanguage = targetLanguage,
         onMicClick = {
             if (isRecording) {
                 viewModel.stopRecording()
@@ -94,6 +98,8 @@ fun Home(viewModel: HomeViewModel = viewModel()) {
 fun HomeContent(
     transcription: String?,
     isRecording: Boolean,
+    sourceLanguage: String?,
+    targetLanguage: String?,
     onMicClick: () -> Unit
 ) {
         val sentenceForms = mutableListOf(
@@ -132,7 +138,7 @@ fun HomeContent(
                         modifier = Modifier.fillMaxWidth()
                             .padding(10.dp)
                     ) {
-                        Text(text = "\uD83C\uDDEC\uD83C\uDDE7 English", fontSize = 15.sp,
+                        Text(text = "\uD83C\uDDEC\uD83C\uDDE7 $targetLanguage", fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.Black,
                             modifier = Modifier.padding(4.dp))
@@ -143,7 +149,7 @@ fun HomeContent(
                                 .background(color = Color(0xFFFFCDD2).copy(alpha = 0.5f), shape = CircleShape)
                                 .padding(8.dp)
                                 .size(15.dp))
-                        Text(text = "Italian \uD83C\uDDEE\uD83C\uDDF9", fontSize = 15.sp,
+                        Text(text = "$sourceLanguage \uD83C\uDDEE\uD83C\uDDF9", fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.Black,
                             modifier = Modifier.padding(4.dp))
@@ -267,6 +273,8 @@ fun HomePreview() {
         HomeContent(
             transcription = null,
             isRecording = false,
+            sourceLanguage = "English",
+            targetLanguage = "Italian",
             onMicClick = {}
         )
     }
@@ -279,6 +287,8 @@ fun HomeRecordingPreview() {
         HomeContent(
             transcription = "Buongiorno, come stai?",
             isRecording = true,
+            sourceLanguage = "English",
+            targetLanguage = "Italian",
             onMicClick = {}
         )
     }
@@ -295,6 +305,8 @@ fun HomeWithNavBarPreview() {
                 HomeContent(
                     transcription = null,
                     isRecording = false,
+                    sourceLanguage = "English",
+                    targetLanguage = "Italian",
                     onMicClick = {}
                 )
             }

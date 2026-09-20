@@ -6,12 +6,15 @@ import android.media.MediaRecorder
 import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.speakit.db.repo.UserPreferenceRepo
 import com.example.speakit.network.RetrofitInstance
 import com.example.speakit.network.SpeechRequest
 import com.example.speakit.network.TranslateRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -46,6 +49,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private var tempTargetLang: String = "Italian"
 
     private var mediaplayer: MediaPlayer? = null
+
+    private val repo = UserPreferenceRepo(application)
+    val sourceLanguage: StateFlow<String?> = repo.sourceLanguage
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+    val targetLanguage: StateFlow<String?> = repo.targetLanguage
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
     fun startRecording() {
         val context = getApplication<Application>()
