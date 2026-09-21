@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.speakit.components.LanguageSettingRow
-import com.example.speakit.components.SettingsCard
 import com.example.speakit.ui.theme.SpeakITTheme
 import com.example.speakit.viewmodel.SettingsViewModel
 
