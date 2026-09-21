@@ -21,9 +21,9 @@ fun LanguageSettingRow(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth().padding(8.dp)
     ) {
-        Text(text = "$label: $language",
+        Text(text = "$label  $language",
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(8.dp))
+            modifier = Modifier.padding(10.dp))
         TextButton(onClick = onChangeClick) { Text("Change") }
     }
 

@@ -62,7 +62,7 @@ fun SettingsContent(
             LanguageSettingRow(
                 label = "\uD83C\uDDEE\uD83C\uDDF9",
                 language = "Italian"
-            ) { }
+            ) {}
 
         }
     }
