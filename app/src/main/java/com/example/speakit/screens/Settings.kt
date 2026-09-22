@@ -38,7 +38,10 @@ fun Settings(viewModel: SettingsViewModel = viewModel()) {
         sourceLanguage = sourceLanguage,
         targetLanguage = targetLanguage,
         onSourceLanguageChange = viewModel::setSourceLanguage,
-        onTargetLanguageChange = viewModel::setTargetLanguage
+        onTargetLanguageChange = viewModel::setTargetLanguage,
+        onPlaybackSpeedClick = {
+
+        }
     )
 
 }
@@ -48,7 +51,8 @@ fun SettingsContent(
     sourceLanguage: String?,
     targetLanguage: String?,
     onSourceLanguageChange: (String) -> Unit,
-    onTargetLanguageChange: (String) -> Unit
+    onTargetLanguageChange: (String) -> Unit,
+    onPlaybackSpeedClick: () -> Unit
 ){
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
@@ -120,7 +124,8 @@ fun SettingsPreview(){
                     sourceLanguage = "English",
                     targetLanguage = "Italian",
                     onSourceLanguageChange = {},
-                    onTargetLanguageChange = {}
+                    onTargetLanguageChange = {},
+                    onPlaybackSpeedClick = {}
                 )
             }
         }
