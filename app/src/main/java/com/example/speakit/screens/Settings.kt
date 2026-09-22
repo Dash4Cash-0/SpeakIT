@@ -1,13 +1,17 @@
 package com.example.speakit.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -68,8 +72,40 @@ fun SettingsContent(
             ) {}
 
         }
+        ElevatedCard(
+            modifier = Modifier.padding(top = 10.dp),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 6.dp
+            )
+        ) {
+            Text(text = "PlAYBACK SPEED",
+                modifier = Modifier
+                    .padding(top = 12.dp, start = 15.dp),
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.5.sp)
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                SpeedButtons("0.5x")
+                SpeedButtons("0.7x")
+                SpeedButtons("1x")
+                SpeedButtons("1.3x")
+            }
+        }
     }
 
+}
+
+@Composable
+private fun SpeedButtons(label: String){
+    TextButton(
+        modifier = Modifier.padding(vertical = 8.dp),
+        onClick = {}
+    ) {
+        Text(text = label)
+    }
 }
 
 @Preview(showBackground = true, apiLevel = 36, name = "Settings preview")
