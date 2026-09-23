@@ -10,11 +10,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -82,7 +86,7 @@ fun SettingsContent(
                 defaultElevation = 6.dp
             )
         ) {
-            Text(text = "PlAYBACK SPEED",
+            Text(text = "PLAYBACK SPEED",
                 modifier = Modifier
                     .padding(top = 12.dp, start = 15.dp),
                 fontSize = 11.sp,
@@ -96,6 +100,28 @@ fun SettingsContent(
                 SpeedButtons("0.7x")
                 SpeedButtons("1x")
                 SpeedButtons("1.3x")
+            }
+        }
+        var checked by remember { mutableStateOf(true) }
+        ElevatedCard(
+            modifier = Modifier.padding(top = 10.dp),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 6.dp
+            )
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth().padding(10.dp)
+            ) {
+                Text(text = "Auto-play translation",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.ExtraBold)
+                Switch(
+                    checked = checked,
+                    onCheckedChange = {
+                        checked = it
+                    }
+                )
             }
         }
     }
