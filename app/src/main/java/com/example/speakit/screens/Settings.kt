@@ -102,27 +102,18 @@ fun SettingsContent(
                 SpeedButtons("1.3x")
             }
         }
-        var checked by remember { mutableStateOf(true) }
+
         ElevatedCard(
             modifier = Modifier.padding(top = 10.dp),
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 6.dp
             )
         ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth().padding(10.dp)
-            ) {
-                Text(text = "Auto-play translation",
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.ExtraBold)
-                Switch(
-                    checked = checked,
-                    onCheckedChange = {
-                        checked = it
-                    }
-                )
-            }
+            SettingsSwitches("Auto-play translation")
+            SettingsSwitches("Save every sentence")
+            SettingsSwitches("Suggest related forms")
+            SettingsSwitches("Daily practice reminder")
+
         }
     }
 
@@ -135,6 +126,25 @@ private fun SpeedButtons(label: String){
         onClick = {}
     ) {
         Text(text = label)
+    }
+}
+
+@Composable
+private fun SettingsSwitches(label: String){
+    var checked by remember { mutableStateOf(true) }
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier.fillMaxWidth().padding(10.dp)
+    ) {
+        Text(text = label,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.ExtraBold)
+        Switch(
+            checked = checked,
+            onCheckedChange = {
+                checked = it
+            }
+        )
     }
 }
 
