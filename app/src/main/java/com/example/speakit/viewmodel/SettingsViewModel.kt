@@ -13,6 +13,12 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     private val repo = UserPreferenceRepo(application)
 
+    fun setAutoPlayTranslation(enabled:  Boolean){
+        viewModelScope.launch {
+            repo.setAutoPlayTranslation(enabled)
+        }
+    }
+
     val sourceLanguage: StateFlow<String?> = repo.sourceLanguage
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
