@@ -133,7 +133,7 @@ private fun SpeedButtons(label: String){
 
 @Composable
 private fun SettingsSwitches(label: String){
-    var checked by remember { mutableStateOf(true) }
+    var checked by remember { mutableStateOf(false) }
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth().padding(10.dp)
@@ -145,7 +145,8 @@ private fun SettingsSwitches(label: String){
             checked = checked,
             colors = SwitchDefaults.colors(
                 checkedTrackColor = Color.Red,
-                uncheckedTrackColor = Color.Gray
+                uncheckedTrackColor = Color.Gray,
+                uncheckedThumbColor = Color.White
             ),
             onCheckedChange = {
                 checked = it
