@@ -15,6 +15,12 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     val autoPlayTranslation: StateFlow<Boolean> = repo.autoPlayTranslation
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), true)
+    val autoSaveSentence: StateFlow<Boolean> = repo.autoSaveSentence
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), true)
+    val suggestForms: StateFlow<Boolean> = repo.suggestForms
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), true)
+    val dailyPracticeReminder: StateFlow<Boolean> = repo.dailyPracticeReminder
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), true)
 
     fun setAutoPlayTranslation(enabled:  Boolean){
         viewModelScope.launch {
