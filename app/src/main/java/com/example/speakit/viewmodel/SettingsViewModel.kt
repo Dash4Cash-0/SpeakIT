@@ -13,11 +13,31 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     private val repo = UserPreferenceRepo(application)
 
+    val autoPlayTranslation: StateFlow<Boolean> = repo.autoPlayTranslation
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), true)
+
     fun setAutoPlayTranslation(enabled:  Boolean){
         viewModelScope.launch {
             repo.setAutoPlayTranslation(enabled)
         }
     }
+
+    fun setAutoSaveSentence(enabled:  Boolean){
+        viewModelScope.launch {
+            repo.setAutoSaveSentence(enabled)
+        }
+    }
+    fun setSuggestForms(enabled:  Boolean){
+        viewModelScope.launch {
+            repo.setSuggestForms(enabled)
+        }
+    }
+    fun setDailyPracticeReminder(enabled:  Boolean){
+        viewModelScope.launch {
+            repo.setDailyPracticeReminder(enabled)
+        }
+    }
+
 
     val sourceLanguage: StateFlow<String?> = repo.sourceLanguage
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
