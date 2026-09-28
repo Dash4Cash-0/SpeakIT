@@ -171,7 +171,7 @@ private fun SettingsSwitches(
                 uncheckedThumbColor = Color.White
             ),
             onCheckedChange = {
-                onCheckedChange
+                onCheckedChange(it)
             }
         )
     }
