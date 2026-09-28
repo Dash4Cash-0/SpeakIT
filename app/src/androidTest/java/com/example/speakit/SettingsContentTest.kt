@@ -55,7 +55,8 @@ class SettingsContentTest {
     @Test
     fun clickingAutoSaveSwitch_sendsTrueToCallback() {
         // Arrange
-        var received: Boolean? = null
+        var autoSaveReceived: Boolean? = null
+        var autoPlayReceived: Boolean? = null
         composeRule.setContent {
             SettingsContent(
                 sourceLanguage = "English",
@@ -64,8 +65,8 @@ class SettingsContentTest {
                 autoSaveSentence = false,
                 suggestForms = false,
                 dailyPracticeReminder = true,
-                onAutoPlaySwitch = {},
-                onAutoSaveSentenceSwitch = { received = it },
+                onAutoPlaySwitch = {autoPlayReceived = it},
+                onAutoSaveSentenceSwitch = { autoSaveReceived = it },
                 onSuggestFormsSwitch = {},
                 onDailyPracticeSwitch = {},
                 onSourceLanguageChange = {},
@@ -74,10 +75,11 @@ class SettingsContentTest {
             )
         }
 
-        // Act
         switchFor("Save every sentence").performClick()
+        switchFor("Auto-play translation").performClick()
 
-        // Assert
-        assertEquals(true, received)
+        assertEquals(true, autoSaveReceived)
+        assertEquals(false, autoPlayReceived)
+
     }
 }
