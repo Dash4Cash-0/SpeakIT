@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Scaffold
@@ -19,6 +20,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -155,7 +157,14 @@ private fun SettingsSwitches(
     onCheckedChange: (Boolean) -> Unit){
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth().padding(10.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .toggleable(
+                value = checked,
+                role = Role.Switch,
+                onValueChange = onCheckedChange
+            )
+            .padding(10.dp)
     ) {
         Text(text = label,
             fontSize = 12.sp,
@@ -167,9 +176,7 @@ private fun SettingsSwitches(
                 uncheckedTrackColor = Color.Gray,
                 uncheckedThumbColor = Color.White
             ),
-            onCheckedChange = {
-                onCheckedChange(it)
-            }
+            onCheckedChange = null
         )
     }
 }
