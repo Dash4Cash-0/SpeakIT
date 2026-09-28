@@ -39,10 +39,22 @@ fun Settings(viewModel: SettingsViewModel = viewModel()) {
 
     val sourceLanguage by viewModel.sourceLanguage.collectAsState()
     val targetLanguage by viewModel.targetLanguage.collectAsState()
+    val autoPlayTranslation by viewModel.autoPlayTranslation.collectAsState()
+    val autoSaveSentence by viewModel.autoSaveSentence.collectAsState()
+    val suggestForms by viewModel.suggestForms.collectAsState()
+    val dailyPracticeReminder by viewModel.dailyPracticeReminder.collectAsState()
 
     SettingsContent(
         sourceLanguage = sourceLanguage,
         targetLanguage = targetLanguage,
+        autoPlayTranslation = autoPlayTranslation,
+        autoSaveSentence = autoSaveSentence,
+        suggestForms = suggestForms,
+        dailyPracticeReminder = dailyPracticeReminder,
+        onAutoPlaySwitch = viewModel::setAutoPlayTranslation,
+        onAutoSaveSentenceSwitch = viewModel::setAutoSaveSentence,
+        onSuggestFormsSwitch = viewModel::setSuggestForms,
+        onDailyPracticeSwitch = viewModel::setDailyPracticeReminder,
         onSourceLanguageChange = viewModel::setSourceLanguage,
         onTargetLanguageChange = viewModel::setTargetLanguage,
         onPlaybackSpeedClick = {
@@ -56,6 +68,14 @@ fun Settings(viewModel: SettingsViewModel = viewModel()) {
 fun SettingsContent(
     sourceLanguage: String?,
     targetLanguage: String?,
+    autoPlayTranslation: Boolean,
+    autoSaveSentence: Boolean,
+    suggestForms: Boolean,
+    dailyPracticeReminder: Boolean,
+    onAutoPlaySwitch: (Boolean) -> Unit,
+    onAutoSaveSentenceSwitch: (Boolean) -> Unit,
+    onSuggestFormsSwitch: (Boolean) -> Unit,
+    onDailyPracticeSwitch: (Boolean) -> Unit,
     onSourceLanguageChange: (String) -> Unit,
     onTargetLanguageChange: (String) -> Unit,
     onPlaybackSpeedClick: () -> Unit
@@ -111,10 +131,10 @@ fun SettingsContent(
                 defaultElevation = 6.dp
             )
         ) {
-            SettingsSwitches("Auto-play translation")
-            SettingsSwitches("Save every sentence")
-            SettingsSwitches("Suggest related forms")
-            SettingsSwitches("Daily practice reminder")
+            SettingsSwitches("Auto-play translation", autoPlayTranslation, onAutoPlaySwitch )
+            SettingsSwitches("Save every sentence", autoSaveSentence, onAutoSaveSentenceSwitch)
+            SettingsSwitches("Suggest related forms", suggestForms, onSuggestFormsSwitch)
+            SettingsSwitches("Daily practice reminder", dailyPracticeReminder, onDailyPracticeSwitch)
 
         }
     }
@@ -132,8 +152,10 @@ private fun SpeedButtons(label: String){
 }
 
 @Composable
-private fun SettingsSwitches(label: String){
-    var checked by remember { mutableStateOf(false) }
+private fun SettingsSwitches(
+    label: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit){
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth().padding(10.dp)
@@ -149,7 +171,7 @@ private fun SettingsSwitches(label: String){
                 uncheckedThumbColor = Color.White
             ),
             onCheckedChange = {
-                checked = it
+                onCheckedChange
             }
         )
     }
@@ -166,12 +188,20 @@ fun SettingsPreview(){
                 SettingsContent(
                     sourceLanguage = "English",
                     targetLanguage = "Italian",
+                    autoPlayTranslation = true,
+                    autoSaveSentence = false,
+                    suggestForms = false,
+                    dailyPracticeReminder = true,
                     onSourceLanguageChange = {},
                     onTargetLanguageChange = {},
-                    onPlaybackSpeedClick = {}
+                    onPlaybackSpeedClick = {},
+                    onAutoPlaySwitch = {},
+                    onAutoSaveSentenceSwitch = {},
+                    onSuggestFormsSwitch = {},
+                    onDailyPracticeSwitch = {}
+
                 )
             }
         }
     }
-
 }
