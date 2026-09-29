@@ -18,6 +18,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
@@ -27,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.example.speakit.components.ChangeTargetLanguageDialog
 import com.example.speakit.components.LanguageSettingRow
 import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.ui.theme.SpeakITTheme
@@ -91,10 +95,20 @@ fun SettingsContent(
                 defaultElevation = 6.dp
             )
         ) {
+            var showDialog by remember { mutableStateOf(false) }
             LanguageSettingRow(
                 label = "\uD83C\uDDEC\uD83C\uDDE7",
-                language = "English"
-            ) { }
+                language = "English",
+                onChangeClick = { showDialog = true}
+            )
+            if (showDialog)
+            {
+                ChangeTargetLanguageDialog(
+                    onDismiss = {showDialog = false},
+                    onSelect = {lang ->
+                        onTargetLanguageChange(lang)
+                        showDialog = false})
+            }
             LanguageSettingRow(
                 label = "\uD83C\uDDEE\uD83C\uDDF9",
                 language = "Italian"
