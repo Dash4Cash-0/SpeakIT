@@ -17,6 +17,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
+
+var languageList = listOf(
+    "\uD83C\uDDEC\uD83C\uDDE7 English",
+    "\ud83c\uddea\ud83c\uddf8 Spanish",
+    "\uD83C\uDDEE\uD83C\uDDF9 Italian",
+    "\ud83c\uddf5\ud83c\uddf9 Portuguese",
+    "\ud83c\uddeb\ud83c\uddf7 French",
+    "German",
+    "Dutch",
+    "\ud83c\uddf8\ud83c\uddea Swedish",
+    "Japanese",
+    "\ud83c\uddf0\ud83c\uddf7 Korean",
+    "Chinese (Mandarin)")
 @Composable
 fun LanguageSettingRow(
     label: String,
@@ -44,7 +57,7 @@ fun ChangeSourceLanguageDialog(
         Card(shape = RoundedCornerShape(16.dp)) {
             Column(modifier = Modifier.padding(16.dp). verticalScroll(rememberScrollState())) {
                 Text(text = "Choose Language", fontWeight = FontWeight.Bold)
-                listOf("English", "Italian", "Swedish").forEach { lang ->
+                languageList.forEach { lang ->
                     TextButton(onClick = {onSelect(lang); onDismiss()}) { Text(lang) }
                 }
             }
