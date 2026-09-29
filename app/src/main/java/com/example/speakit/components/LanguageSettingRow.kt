@@ -24,12 +24,12 @@ var languageList = listOf(
     "\uD83C\uDDEE\uD83C\uDDF9 Italian",
     "\ud83c\uddf5\ud83c\uddf9 Portuguese",
     "\ud83c\uddeb\ud83c\uddf7 French",
-    "German",
-    "Dutch",
+    "\ud83c\udde9\ud83c\uddea German",
+    "\ud83c\uddf3\ud83c\uddf1 Dutch",
     "\ud83c\uddf8\ud83c\uddea Swedish",
-    "Japanese",
+    "\ud83c\uddef\ud83c\uddf5 Japanese",
     "\ud83c\uddf0\ud83c\uddf7 Korean",
-    "Chinese (Mandarin)")
+    "\ud83c\udde8\ud83c\uddf3 Chinese (Mandarin)")
 @Composable
 fun LanguageSettingRow(
     label: String,
