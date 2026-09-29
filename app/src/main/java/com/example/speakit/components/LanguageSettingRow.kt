@@ -36,7 +36,7 @@ fun LanguageSettingRow(
 }
 
 @Composable
-fun ChangeTargetLanguageDialog(
+fun ChangeSourceLanguageDialog(
     onDismiss: () -> Unit,
     onSelect:(String) -> Unit)
 {

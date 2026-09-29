@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.speakit.components.ChangeTargetLanguageDialog
+import com.example.speakit.components.ChangeSourceLanguageDialog
 import com.example.speakit.components.LanguageSettingRow
 import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.ui.theme.SpeakITTheme
@@ -98,12 +98,12 @@ fun SettingsContent(
             var showDialog by remember { mutableStateOf(false) }
             LanguageSettingRow(
                 label = "\uD83C\uDDEC\uD83C\uDDE7",
-                language = "English",
+                language = sourceLanguage,
                 onChangeClick = { showDialog = true}
             )
             if (showDialog)
             {
-                ChangeTargetLanguageDialog(
+                ChangeSourceLanguageDialog(
                     onDismiss = {showDialog = false},
                     onSelect = {lang ->
                         onTargetLanguageChange(lang)
@@ -111,7 +111,7 @@ fun SettingsContent(
             }
             LanguageSettingRow(
                 label = "\uD83C\uDDEE\uD83C\uDDF9",
-                language = "Italian"
+                language = targetLanguage
             ) {}
 
         }
