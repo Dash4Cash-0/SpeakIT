@@ -30,8 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.speakit.components.ChangeSourceLanguageDialog
-import com.example.speakit.components.ChangeTargetLanguageDialog
+import com.example.speakit.components.ChangeLanguageDialog
 import com.example.speakit.components.LanguageSettingRow
 import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.ui.theme.SpeakITTheme
@@ -110,15 +109,16 @@ fun SettingsContent(
                 onChangeClick = {openDialog = LanguageDialog.Target}
             )
             when (openDialog){
-                LanguageDialog.Source -> ChangeSourceLanguageDialog(
+                LanguageDialog.Source -> ChangeLanguageDialog(
+                    title = "Change spoken language",
                     onDismiss = {openDialog = null},
                     onSelect = {lang ->
                         onSourceLanguageChange(lang)
                         openDialog = null
                     }
                 )
-
-                LanguageDialog.Target -> ChangeTargetLanguageDialog(
+                LanguageDialog.Target -> ChangeLanguageDialog(
+                    title = "Change learning language",
                     onDismiss = {openDialog = null},
                     onSelect = {lang ->
                         onTargetLanguageChange(lang)
