@@ -106,7 +106,7 @@ fun SettingsContent(
                 ChangeSourceLanguageDialog(
                     onDismiss = {showDialog = false},
                     onSelect = {lang ->
-                        onTargetLanguageChange(lang)
+                        onSourceLanguageChange(lang)
                         showDialog = false})
             }
             LanguageSettingRow(
