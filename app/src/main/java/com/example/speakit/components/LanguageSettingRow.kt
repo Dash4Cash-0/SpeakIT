@@ -56,7 +56,7 @@ fun ChangeLanguageDialog(
     Dialog(onDismissRequest = onDismiss) {
         Card(shape = RoundedCornerShape(16.dp)) {
             Column(modifier = Modifier.padding(16.dp). verticalScroll(rememberScrollState())) {
-                Text(text = "Choose Language", fontWeight = FontWeight.Bold)
+                Text(text = title, fontWeight = FontWeight.Bold)
                 languageList.forEach { lang ->
                     TextButton(onClick = {onSelect(lang); onDismiss()}) { Text(lang) }
                 }

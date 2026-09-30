@@ -101,12 +101,12 @@ fun SettingsContent(
         ) {
             var openDialog by remember { mutableStateOf<LanguageDialog?>(null) }
             LanguageSettingRow(
-                label = "\uD83C\uDDEC\uD83C\uDDE7",
+                label = "Speaking: ",
                 language = sourceLanguage,
                 onChangeClick = { openDialog = LanguageDialog.Source}
             )
             LanguageSettingRow(
-                label = "\uD83C\uDDEE\uD83C\uDDF9",
+                label = "Learning: ",
                 language = targetLanguage,
                 onChangeClick = {openDialog = LanguageDialog.Target}
             )
