@@ -138,7 +138,7 @@ fun HomeContent(
                         modifier = Modifier.fillMaxWidth()
                             .padding(10.dp)
                     ) {
-                        Text(text = "\uD83C\uDDEC\uD83C\uDDE7 $sourceLanguage", fontSize = 15.sp,
+                        Text(text = "$sourceLanguage", fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.Black,
                             modifier = Modifier.padding(4.dp))
@@ -149,7 +149,7 @@ fun HomeContent(
                                 .background(color = Color(0xFFFFCDD2).copy(alpha = 0.5f), shape = CircleShape)
                                 .padding(8.dp)
                                 .size(15.dp))
-                        Text(text = "$targetLanguage \uD83C\uDDEE\uD83C\uDDF9", fontSize = 15.sp,
+                        Text(text = "$targetLanguage ", fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.Black,
                             modifier = Modifier.padding(4.dp))
