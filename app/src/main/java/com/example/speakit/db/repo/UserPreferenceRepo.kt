@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -23,8 +24,11 @@ class UserPreferenceRepo(private val context: Context) {
         val SAVE_SENTENCE = booleanPreferencesKey("save_sentence")
         val SUGGEST_FORMS = booleanPreferencesKey("suggest_forms")
         val DAILY_PRACTICE_REMINDER = booleanPreferencesKey("daily_practice_reminder")
+        val PLAYBACK_SPEED = floatPreferencesKey("playback_speed")
     }
 
+    val playbackSpeed: Flow<Float> = context.dataStore.data
+        .map { it[Keys.PLAYBACK_SPEED] ?: 1f }
     val autoPlayTranslation: Flow<Boolean> = context.dataStore.data
         .map { it[Keys.AUTO_PLAY] ?: true }
     val autoSaveSentence: Flow<Boolean> = context.dataStore.data
@@ -33,6 +37,9 @@ class UserPreferenceRepo(private val context: Context) {
         .map { it[Keys.SUGGEST_FORMS] ?: false }
     val dailyPracticeReminder: Flow<Boolean> = context.dataStore.data
         .map { it[Keys.DAILY_PRACTICE_REMINDER] ?: true }
+    suspend fun setPlaybackSpeed(speed: Float) {
+        context.dataStore.edit { it[Keys.PLAYBACK_SPEED] = speed }
+    }
     suspend fun setAutoPlayTranslation(enabled: Boolean) {
         context.dataStore.edit { it[Keys.AUTO_PLAY] = enabled }
     }

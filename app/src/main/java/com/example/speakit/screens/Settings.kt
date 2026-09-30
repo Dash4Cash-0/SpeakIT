@@ -46,6 +46,7 @@ fun Settings(viewModel: SettingsViewModel = viewModel()) {
     val autoSaveSentence by viewModel.autoSaveSentence.collectAsState()
     val suggestForms by viewModel.suggestForms.collectAsState()
     val dailyPracticeReminder by viewModel.dailyPracticeReminder.collectAsState()
+    val playbackSpeed by viewModel.playbackSpeed.collectAsState()
 
 
     SettingsContent(
@@ -61,6 +62,7 @@ fun Settings(viewModel: SettingsViewModel = viewModel()) {
         onDailyPracticeSwitch = viewModel::setDailyPracticeReminder,
         onSourceLanguageChange = viewModel::setSourceLanguage,
         onTargetLanguageChange = viewModel::setTargetLanguage,
+        playbackSpeed = playbackSpeed,
         onPlaybackSpeedClick = {
 
         }
@@ -82,7 +84,8 @@ fun SettingsContent(
     onDailyPracticeSwitch: (Boolean) -> Unit,
     onSourceLanguageChange: (String) -> Unit,
     onTargetLanguageChange: (String) -> Unit,
-    onPlaybackSpeedClick: () -> Unit
+    playbackSpeed: Float,
+    onPlaybackSpeedClick: (Float) -> Unit
 
 ){
     Column(
@@ -145,10 +148,13 @@ fun SettingsContent(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                SpeedButtons("0.5x")
-                SpeedButtons("0.7x")
-                SpeedButtons("1x")
-                SpeedButtons("1.3x")
+                listOf(0.5f,0.7f,1f,1.3f).forEach { speed ->
+                    SpeedButtons(
+                        label = "${speed}x",
+                        selected = speed == playbackSpeed,
+                        onClick = {onPlaybackSpeedClick(speed)}
+                    )
+                }
             }
         }
 
@@ -169,12 +175,17 @@ fun SettingsContent(
 }
 
 @Composable
-private fun SpeedButtons(label: String){
+private fun SpeedButtons(
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit){
     TextButton(
         modifier = Modifier.padding(vertical = 8.dp),
-        onClick = {}
+        onClick = onClick
     ) {
-        Text(text = label)
+        Text(text = label,
+            fontWeight = if(selected) FontWeight.Bold else FontWeight.Normal,
+            color = if(selected) Color.Red else Color.Unspecified)
     }
 }
 
@@ -226,11 +237,13 @@ fun SettingsPreview(){
                     dailyPracticeReminder = true,
                     onSourceLanguageChange = {},
                     onTargetLanguageChange = {},
+                    playbackSpeed = 1f,
                     onPlaybackSpeedClick = {},
                     onAutoPlaySwitch = {},
                     onAutoSaveSentenceSwitch = {},
                     onSuggestFormsSwitch = {},
-                    onDailyPracticeSwitch = {}
+                    onDailyPracticeSwitch = {},
+
 
                 )
             }
