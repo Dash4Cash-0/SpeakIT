@@ -31,12 +31,13 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.speakit.components.ChangeSourceLanguageDialog
+import com.example.speakit.components.ChangeTargetLanguageDialog
 import com.example.speakit.components.LanguageSettingRow
 import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.ui.theme.SpeakITTheme
 import com.example.speakit.viewmodel.SettingsViewModel
 
-
+private enum class LanguageDialog{Source, Target}
 @Composable
 fun Settings(viewModel: SettingsViewModel = viewModel()) {
 
@@ -46,6 +47,7 @@ fun Settings(viewModel: SettingsViewModel = viewModel()) {
     val autoSaveSentence by viewModel.autoSaveSentence.collectAsState()
     val suggestForms by viewModel.suggestForms.collectAsState()
     val dailyPracticeReminder by viewModel.dailyPracticeReminder.collectAsState()
+
 
     SettingsContent(
         sourceLanguage = sourceLanguage,
@@ -82,6 +84,7 @@ fun SettingsContent(
     onSourceLanguageChange: (String) -> Unit,
     onTargetLanguageChange: (String) -> Unit,
     onPlaybackSpeedClick: () -> Unit
+
 ){
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
@@ -95,24 +98,35 @@ fun SettingsContent(
                 defaultElevation = 6.dp
             )
         ) {
-            var showDialog by remember { mutableStateOf(false) }
+            var openDialog by remember { mutableStateOf<LanguageDialog?>(null) }
             LanguageSettingRow(
                 label = "\uD83C\uDDEC\uD83C\uDDE7",
                 language = sourceLanguage,
-                onChangeClick = { showDialog = true}
+                onChangeClick = { openDialog = LanguageDialog.Source}
             )
-            if (showDialog)
-            {
-                ChangeSourceLanguageDialog(
-                    onDismiss = {showDialog = false},
-                    onSelect = {lang ->
-                        onSourceLanguageChange(lang)
-                        showDialog = false})
-            }
             LanguageSettingRow(
                 label = "\uD83C\uDDEE\uD83C\uDDF9",
-                language = targetLanguage
-            ) {}
+                language = targetLanguage,
+                onChangeClick = {openDialog = LanguageDialog.Target}
+            )
+            when (openDialog){
+                LanguageDialog.Source -> ChangeSourceLanguageDialog(
+                    onDismiss = {openDialog = null},
+                    onSelect = {lang ->
+                        onSourceLanguageChange(lang)
+                        openDialog = null
+                    }
+                )
+
+                LanguageDialog.Target -> ChangeTargetLanguageDialog(
+                    onDismiss = {openDialog = null},
+                    onSelect = {lang ->
+                        onTargetLanguageChange(lang)
+                        openDialog = null
+                    }
+                )
+                null -> Unit
+            }
 
         }
         ElevatedCard(
