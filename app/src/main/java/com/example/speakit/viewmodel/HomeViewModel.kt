@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -169,10 +170,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             _error.value = null
             try {
+                val speed = repo.playbackSpeed.first()
                 withContext(Dispatchers.IO) {
                     mediaplayer?.setDataSource(file.absolutePath)
                     mediaplayer?.prepare()
                 }
+                mediaplayer?.let { it.playbackParams = it.playbackParams.setSpeed(speed) }
                 mediaplayer?.start()
             } catch (e: Exception) {
                 _error.value = e.message ?: "Failed to play audio"
