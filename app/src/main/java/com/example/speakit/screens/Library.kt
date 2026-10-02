@@ -20,9 +20,11 @@ import com.example.speakit.viewmodel.LibraryViewModel
 
 @Composable
 fun Library(viewModel: LibraryViewModel = viewModel()) {
+    val savedSentences = mutableListOf("") //PLACEHOLDER LIST, PULL FROM DB
 
 
     LibraryContent(
+        savedSentences = savedSentences
 
     )
 
@@ -31,7 +33,9 @@ fun Library(viewModel: LibraryViewModel = viewModel()) {
 
 
 @Composable
-fun LibraryContent(){
+fun LibraryContent(
+    savedSentences: MutableList<String>
+){
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
@@ -39,10 +43,10 @@ fun LibraryContent(){
             modifier = Modifier.padding(6.dp),
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold)
-        Text(text = "",
+        Text(text = "${savedSentences.size} saved",
             modifier = Modifier.padding(6.dp),
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Bold)
+            fontSize = 24.sp,
+            fontWeight = FontWeight.ExtraBold)
     }
 
 }
@@ -57,7 +61,7 @@ fun LibraryPreview(){
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)){
                 LibraryContent(
-
+                    savedSentences = mutableListOf()
                     )
             }
         }
