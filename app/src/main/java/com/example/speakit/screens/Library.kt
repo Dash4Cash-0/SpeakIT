@@ -53,6 +53,21 @@ fun LibraryContent(
             modifier = Modifier.padding(6.dp),
             fontSize = 24.sp,
             fontWeight = FontWeight.ExtraBold)
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            var isSelected = false
+            listOf("All", "Travel", "Social", "Animals", "Other").forEach {
+                category -> LibraryCategories(
+                    label = category,
+                    selected = isSelected,
+                    onClick = {
+                        isSelected = true
+                    }
+                )
+            }
+        }
     }
 
 }
@@ -63,10 +78,6 @@ fun LibraryCategories(
     selected: Boolean,
     onClick: () -> Unit
 ){
-    Row(
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        modifier = Modifier.fillMaxWidth().padding(8.dp)
-    ) {
         TextButton(
             modifier = Modifier.padding(vertical = 8.dp),
             onClick = onClick,
@@ -78,7 +89,6 @@ fun LibraryCategories(
             Text(text = label,
                 fontWeight = if(selected) FontWeight.Bold else FontWeight.Normal)
         }
-    }
 }
 
 
