@@ -25,6 +25,7 @@ class UserPreferenceRepo(private val context: Context) {
         val SUGGEST_FORMS = booleanPreferencesKey("suggest_forms")
         val DAILY_PRACTICE_REMINDER = booleanPreferencesKey("daily_practice_reminder")
         val PLAYBACK_SPEED = floatPreferencesKey("playback_speed")
+        val CATEGORY_CHOICE = booleanPreferencesKey("category_choice")
     }
 
     val playbackSpeed: Flow<Float> = context.dataStore.data
@@ -37,6 +38,8 @@ class UserPreferenceRepo(private val context: Context) {
         .map { it[Keys.SUGGEST_FORMS] ?: false }
     val dailyPracticeReminder: Flow<Boolean> = context.dataStore.data
         .map { it[Keys.DAILY_PRACTICE_REMINDER] ?: true }
+    val categoryChoice: Flow<Boolean> = context.dataStore.data
+        .map { it[Keys.CATEGORY_CHOICE] ?: false }
     suspend fun setPlaybackSpeed(speed: Float) {
         context.dataStore.edit { it[Keys.PLAYBACK_SPEED] = speed }
     }
@@ -54,6 +57,9 @@ class UserPreferenceRepo(private val context: Context) {
 
     suspend fun setDailyPracticeReminder(enabled: Boolean) {
         context.dataStore.edit { it[Keys.DAILY_PRACTICE_REMINDER] = enabled }
+    }
+    suspend fun setCategoryChoice(enabled: Boolean) {
+        context.dataStore.edit { it[Keys.CATEGORY_CHOICE] = enabled }
     }
 
     val sourceLanguage: Flow<String?> = context.dataStore.data
