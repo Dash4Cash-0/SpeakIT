@@ -12,6 +12,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -27,10 +30,13 @@ import com.example.speakit.viewmodel.LibraryViewModel
 @Composable
 fun Library(viewModel: LibraryViewModel = viewModel()) {
     val savedSentences = mutableListOf("") //PLACEHOLDER LIST, PULL FROM DB
+    val chosenCategory by viewModel.categoryChoice.collectAsState()
 
 
     LibraryContent(
-        savedSentences = savedSentences
+        savedSentences = savedSentences,
+        chosenCategory = chosenCategory,
+        onChosenCategory = viewModel::setCategoryChoice
 
     )
 
@@ -40,7 +46,9 @@ fun Library(viewModel: LibraryViewModel = viewModel()) {
 
 @Composable
 fun LibraryContent(
-    savedSentences: MutableList<String>
+    savedSentences: MutableList<String>,
+    chosenCategory: Boolean,
+    onChosenCategory: (Boolean) -> Unit
 ){
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
@@ -57,13 +65,12 @@ fun LibraryContent(
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.fillMaxWidth()
         ) {
-            var isSelected = false
             listOf("All", "Travel", "Social", "Animals", "Other").forEach {
                 category -> LibraryCategories(
                     label = category,
-                    selected = isSelected,
+                    selected = chosenCategory,
                     onClick = {
-                        isSelected = true
+                        onChosenCategory(true)
                     }
                 )
             }
@@ -101,7 +108,9 @@ fun LibraryPreview(){
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)){
                 LibraryContent(
-                    savedSentences = mutableListOf()
+                    savedSentences = mutableListOf(),
+                    chosenCategory = false,
+                    onChosenCategory = {}
                     )
             }
         }
