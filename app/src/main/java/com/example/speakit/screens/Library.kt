@@ -46,8 +46,8 @@ fun Library(viewModel: LibraryViewModel = viewModel()) {
 @Composable
 fun LibraryContent(
     savedSentences: MutableList<String>,
-    chosenCategory: Boolean,
-    onChosenCategory: (Boolean) -> Unit
+    chosenCategory: String,
+    onChosenCategory: (String) -> Unit
 ){
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
@@ -67,9 +67,9 @@ fun LibraryContent(
             listOf("All", "Travel", "Social", "Shopping", "Other").forEach {
                 category -> LibraryCategories(
                     label = category,
-                    selected = chosenCategory,
+                    selected = chosenCategory == category,
                     onClick = {
-                        onChosenCategory(true)
+                        onChosenCategory(category)
                     }
                 )
             }
@@ -108,7 +108,7 @@ fun LibraryPreview(){
             Box(modifier = Modifier.padding(innerPadding)){
                 LibraryContent(
                     savedSentences = mutableListOf(),
-                    chosenCategory = false,
+                    chosenCategory = "All",
                     onChosenCategory = {}
                     )
             }

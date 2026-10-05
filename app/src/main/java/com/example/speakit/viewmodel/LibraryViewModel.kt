@@ -12,12 +12,12 @@ import kotlinx.coroutines.launch
 class LibraryViewModel(application: Application) : AndroidViewModel(application) {
     private val repo = UserPreferenceRepo(application)
 
-    val categoryChoice: StateFlow<Boolean> = repo.categoryChoice
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+    val categoryChoice: StateFlow<String> = repo.categoryChoice
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "All")
 
-    fun setCategoryChoice(enabled: Boolean){
+    fun setCategoryChoice(category: String){
         viewModelScope.launch {
-            repo.setCategoryChoice(enabled)
+            repo.setCategoryChoice(category)
         }
     }
 }
