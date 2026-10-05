@@ -87,7 +87,6 @@ fun LibraryCategories(
     onClick: () -> Unit
 ){
         TextButton(
-            modifier = Modifier.padding(vertical = 6.dp),
             onClick = onClick,
             colors = ButtonDefaults.textButtonColors(
                 containerColor = if(selected) Color(0xFFFFCDD2).copy(alpha = 0.5f) else Color.Transparent,
