@@ -1,5 +1,6 @@
 package com.example.speakit.screens
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -61,8 +63,8 @@ fun LibraryContent(
             fontSize = 24.sp,
             fontWeight = FontWeight.ExtraBold)
         Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxWidth()
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())
         ) {
             listOf("All", "Travel", "Social", "Shopping", "Other").forEach {
                 category -> LibraryCategories(
@@ -85,7 +87,7 @@ fun LibraryCategories(
     onClick: () -> Unit
 ){
         TextButton(
-            modifier = Modifier.padding(vertical = 8.dp),
+            modifier = Modifier.padding(vertical = 6.dp),
             onClick = onClick,
             colors = ButtonDefaults.textButtonColors(
                 containerColor = if(selected) Color(0xFFFFCDD2).copy(alpha = 0.5f) else Color.Transparent,
