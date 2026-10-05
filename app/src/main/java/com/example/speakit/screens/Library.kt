@@ -64,7 +64,7 @@ fun LibraryContent(
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.fillMaxWidth()
         ) {
-            listOf("All", "Travel", "Social", "Animals", "Other").forEach {
+            listOf("All", "Travel", "Social", "Shopping", "Other").forEach {
                 category -> LibraryCategories(
                     label = category,
                     selected = chosenCategory,
