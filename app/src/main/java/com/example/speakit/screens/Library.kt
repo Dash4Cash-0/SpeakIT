@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DatePicker
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -32,8 +31,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.ui.theme.SpeakITTheme
 import com.example.speakit.viewmodel.LibraryViewModel
-import java.sql.Date
-import java.sql.Time
 
 @Composable
 fun Library(viewModel: LibraryViewModel = viewModel()) {
