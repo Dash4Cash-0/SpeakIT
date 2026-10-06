@@ -10,10 +10,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -137,7 +141,8 @@ private fun SavedSentenceCard(
         )
     ) {
         Row(
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth().padding(10.dp)
         ) {
             Column(
                 verticalArrangement = Arrangement.SpaceEvenly
@@ -168,8 +173,17 @@ private fun SavedSentenceCard(
             }
             IconButton(
                 onClick = onPlay,
-
-                ) { }
+                modifier = Modifier.padding(top = 10.dp),
+                colors = IconButtonDefaults.iconButtonColors(
+                    containerColor = Color(0xFFFFCDD2).copy(alpha = 0.5f),
+                    contentColor = Color(0xFFC62828)
+                )
+            ) {
+                Icon(
+                    imageVector = Icons.Default.PlayArrow,
+                    contentDescription = "Play"
+                )
+            }
         }
     }
 
