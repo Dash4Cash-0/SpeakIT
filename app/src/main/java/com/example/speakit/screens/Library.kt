@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
@@ -88,10 +89,10 @@ fun LibraryContent(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            item {
+            items(List(30) {"Test sentence number $it"}) { sentence ->
 
             SavedSentenceCard(
-                sentence = "Test sentence this is a test",
+                sentence = sentence,
                 translation = "Jag ska bara testa om det fungerar",
                 category = "Test",
                 dateAdded = System.currentTimeMillis(),
