@@ -36,11 +36,18 @@ import androidx.navigation.compose.rememberNavController
 import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.ui.theme.SpeakITTheme
 import com.example.speakit.viewmodel.LibraryViewModel
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Date
 
 @Composable
 fun Library(viewModel: LibraryViewModel = viewModel()) {
     val savedSentences = listOf<String>() //PLACEHOLDER LIST, PULL FROM DB
     val chosenCategory by viewModel.categoryChoice.collectAsState()
+
 
 
     LibraryContent(
@@ -60,6 +67,7 @@ fun LibraryContent(
     chosenCategory: String,
     onChosenCategory: (String) -> Unit
 ){
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
@@ -166,7 +174,7 @@ private fun SavedSentenceCard(
                         fontSize = 8.sp,
                     )
                     Text(
-                        text = "$dateAdded",
+                        text = formatDateAdded(dateAdded),
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -188,6 +196,18 @@ private fun SavedSentenceCard(
         }
     }
 
+}
+
+private fun formatDateAdded(millis: Long): String{
+    val zone = ZoneId.systemDefault()
+    val date = Instant.ofEpochMilli(millis).atZone(zone).toLocalDate()
+    val today = LocalDate.now(zone)
+
+    return when (date) {
+        today -> "Today"
+        today.minusDays(1) -> "Yesterday"
+        else -> date.format(DateTimeFormatter.ofPattern("d MMM yyyy"))
+    }
 }
 
 
