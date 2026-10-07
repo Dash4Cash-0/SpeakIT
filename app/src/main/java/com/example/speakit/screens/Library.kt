@@ -29,6 +29,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -125,12 +126,13 @@ private fun LibraryCategories(
         TextButton(
             onClick = onClick,
             colors = ButtonDefaults.textButtonColors(
-                containerColor = if(selected) Color(0xFFFFCDD2).copy(alpha = 0.5f) else Color.Transparent,
-                contentColor = if(selected) Color.Red else Color.Unspecified
-            )
+                containerColor = if(selected) Color(0xFFEA3013) else Color.White,
+                contentColor = if(selected) Color.White else Color.Gray
+            ),
+            elevation = if (selected) null else ButtonDefaults.buttonElevation(2.dp)
         ) {
             Text(text = label,
-                fontWeight = if(selected) FontWeight.Bold else FontWeight.Normal)
+                fontWeight = if(selected) FontWeight.ExtraBold else FontWeight.Bold)
         }
 }
 
