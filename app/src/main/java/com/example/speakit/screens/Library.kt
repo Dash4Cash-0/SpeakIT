@@ -38,10 +38,8 @@ import com.example.speakit.ui.theme.SpeakITTheme
 import com.example.speakit.viewmodel.LibraryViewModel
 import java.time.Instant
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.Date
 
 @Composable
 fun Library(viewModel: LibraryViewModel = viewModel()) {
