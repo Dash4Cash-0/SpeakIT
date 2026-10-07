@@ -1,5 +1,8 @@
 package com.example.speakit.screens
 
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
+import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.ButtonDefaults
@@ -28,6 +32,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -95,12 +100,12 @@ fun LibraryContent(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(List(30) {"Test sentence number $it"}) { sentence ->
+            items(List(30) {"This is a Test sentence with the number $it"}) { sentence ->
 
             SavedSentenceCard(
                 sentence = sentence,
                 translation = "Jag ska bara testa om det fungerar",
-                category = "Test",
+                category = "TRAVEL",
                 dateAdded = System.currentTimeMillis(),
                 onPlay = {},
                 onClick = {}
@@ -152,29 +157,37 @@ private fun SavedSentenceCard(
             modifier = Modifier.fillMaxWidth().padding(10.dp)
         ) {
             Column(
+                modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
                 Text(
                     text = sentence,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = translation,
-                    fontSize = 8.sp,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
                         text = category,
-                        fontSize = 8.sp,
+                        fontSize = 10.sp,
+                        color = Color(0xFF49040A),
+                        modifier = Modifier.background(Color(0xFFFFCDD2).copy(alpha = 0.5f), shape = CircleShape).padding(horizontal = 10.dp)
                     )
                     Text(
                         text = formatDateAdded(dateAdded),
                         fontSize = 10.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(horizontal = 8.dp)
                     )
                 }
             }
@@ -202,8 +215,8 @@ private fun formatDateAdded(millis: Long): String{
     val today = LocalDate.now(zone)
 
     return when (date) {
-        today -> "Today"
-        today.minusDays(1) -> "Yesterday"
+        today -> "TODAY"
+        today.minusDays(1) -> "YESTERDAY"
         else -> date.format(DateTimeFormatter.ofPattern("d MMM yyyy"))
     }
 }
