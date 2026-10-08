@@ -40,4 +40,9 @@
     <string name="settings_save_every_sentence">Save every sentence</string>
     <string name="settings_suggest_related_forms">Suggest related forms</string>
     <string name="settings_daily_practice_reminder">Daily practice reminder</string>
+
+    <!-- SentenceDetails -->
+    <string name="nav_sentence">Sentence</string>
+
+
 </resources>

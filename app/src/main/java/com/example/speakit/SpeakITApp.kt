@@ -15,6 +15,7 @@ import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.navigation.Screen
 import com.example.speakit.screens.Home
 import com.example.speakit.screens.Library
+import com.example.speakit.screens.SentenceDetails
 import com.example.speakit.screens.Settings
 
 @Composable
@@ -39,6 +40,7 @@ fun SpeakITApp() {
                 composable(Screen.Home.route) { Home() }
                 composable(Screen.Library.route) { Library() }
                 composable(Screen.Settings.route) { Settings() }
+                composable(Screen.SentenceDetails.route) { SentenceDetails() }
             }
         }
     }
