@@ -8,9 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.navigation.Screen
 import com.example.speakit.screens.Home
@@ -38,9 +40,19 @@ fun SpeakITApp() {
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(Screen.Home.route) { Home() }
-                composable(Screen.Library.route) { Library() }
+                composable(Screen.Library.route) { Library(onSentenceClick = { id ->
+                    navController.navigate(Screen.SentenceDetails.createRoute(id))
+                }) }
                 composable(Screen.Settings.route) { Settings() }
-                composable(Screen.SentenceDetails.route) { SentenceDetails() }
+                composable(route = Screen.SentenceDetails.route,
+                    arguments = listOf(navArgument("sentenceId") {type = NavType.LongType})
+                ) { backStackEntry ->
+                    val sentenceId = backStackEntry.arguments?.getLong("sentenceId") ?: return@composable
+                    SentenceDetails(
+                        sentenceId = sentenceId,
+                        onBack = { navController.popBackStack() }
+                    )
+                }
             }
         }
     }

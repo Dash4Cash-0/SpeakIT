@@ -5,9 +5,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.speakit.viewmodel.SentenceDetailViewModel
 
 @Composable
-fun SentenceDetails(viewModel: SentenceDetailViewModel = viewModel()){
+fun SentenceDetails(
+    sentenceId: Long,
+    onBack: () -> Unit,
+    viewModel: SentenceDetailViewModel = viewModel()
+){
 
-    SentenceDetails(
+    SentenceDetailsContent(
 
     )
 }

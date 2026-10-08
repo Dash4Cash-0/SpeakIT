@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -48,7 +48,10 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun Library(viewModel: LibraryViewModel = viewModel()) {
+fun Library(
+    onSentenceClick: (Long) -> Unit,
+    viewModel: LibraryViewModel = viewModel()
+) {
     val savedSentences = listOf<String>() //PLACEHOLDER LIST, PULL FROM DB
     val chosenCategory by viewModel.categoryChoice.collectAsState()
 
@@ -57,8 +60,8 @@ fun Library(viewModel: LibraryViewModel = viewModel()) {
     LibraryContent(
         savedSentences = savedSentences,
         chosenCategory = chosenCategory,
-        onChosenCategory = viewModel::setCategoryChoice
-
+        onChosenCategory = viewModel::setCategoryChoice,
+        onSentenceClick = onSentenceClick
     )
 
 
@@ -69,7 +72,8 @@ fun Library(viewModel: LibraryViewModel = viewModel()) {
 fun LibraryContent(
     savedSentences: List<String>,
     chosenCategory: String,
-    onChosenCategory: (String) -> Unit
+    onChosenCategory: (String) -> Unit,
+    onSentenceClick: (Long) -> Unit
 ){
 
     Column(
@@ -101,7 +105,7 @@ fun LibraryContent(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(List(30) {"This is a Test sentence with the number $it"}) { sentence ->
+            itemsIndexed(List(30) {"This is a Test sentence with the number $it"}) { index, sentence ->
 
             SavedSentenceCard(
                 sentence = sentence,
@@ -110,7 +114,7 @@ fun LibraryContent(
                 dateAdded = System.currentTimeMillis(),
                 onPlay = {},
                 onClick = {
-
+                    onSentenceClick(index.toLong()) // PLACEHOLDER ID, use the sentence's DB id
                 }
 
             )
@@ -238,7 +242,8 @@ fun LibraryPreview(){
                 LibraryContent(
                     savedSentences = listOf(),
                     chosenCategory = "All",
-                    onChosenCategory = {}
+                    onChosenCategory = {},
+                    onSentenceClick = {}
                     )
             }
         }
