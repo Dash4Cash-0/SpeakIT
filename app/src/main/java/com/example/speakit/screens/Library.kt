@@ -109,7 +109,9 @@ fun LibraryContent(
                 category = "TRAVEL",
                 dateAdded = System.currentTimeMillis(),
                 onPlay = {},
-                onClick = {}
+                onClick = {
+
+                }
 
             )
 
