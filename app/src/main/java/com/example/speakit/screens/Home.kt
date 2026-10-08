@@ -41,6 +41,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -49,6 +51,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.example.speakit.R
 import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.ui.theme.SpeakITTheme
 import com.example.speakit.viewmodel.HomeViewModel
@@ -113,8 +116,8 @@ fun HomeContent(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth().padding(8.dp)
             ) {
-                Text(text = "SpeakIT", fontSize = 15.sp, fontWeight = FontWeight.Bold)
-                Text(text = "Day 12", fontSize = 12.sp, fontWeight = FontWeight.Bold,
+                Text(text = stringResource(R.string.app_name), fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                Text(text = stringResource(R.string.home_day_streak, 12), fontSize = 12.sp, fontWeight = FontWeight.Bold,
                     color = Color(0xFFD32F2F),
                     modifier = Modifier.
                     background(color = Color(0xFFFFCDD2).copy(alpha = 0.5f), shape = CircleShape)
@@ -166,7 +169,7 @@ fun HomeContent(
                     ),
                     modifier = Modifier.fillMaxWidth().weight(1f).padding(top = 15.dp)
                 ) {
-                    Text(text = "YOU SAID",
+                    Text(text = stringResource(R.string.home_you_said),
                         modifier = Modifier
                             .padding(top = 12.dp, start = 15.dp),
                         fontSize = 11.sp,
@@ -175,7 +178,7 @@ fun HomeContent(
                     val hasTranscription = !transcription.isNullOrBlank()
                     Text(
                         text = transcription?.takeUnless { it.isBlank() }
-                            ?: if (isRecording) "Listening..." else "What do you want translated today?",
+                            ?: if (isRecording) stringResource(R.string.home_listening) else stringResource(R.string.home_prompt),
                         color = if (hasTranscription) {
                             Color.Black
                         } else {
@@ -207,7 +210,7 @@ fun HomeContent(
 
                 ) {
                     Text(
-                        text = "Also try \u2022 ${sentenceForms.size} Forms",
+                        text = pluralStringResource(R.plurals.home_also_try_forms, sentenceForms.size, sentenceForms.size),
                         modifier = Modifier.padding(8.dp)
                     )
                     if (expanded) {
@@ -226,7 +229,7 @@ fun HomeContent(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth().padding(top = 20.dp)
                 ) {
-                    Text(text = if(isRecording)" Listening - Tap to stop" else "Tap and say a sentence",
+                    Text(text = if(isRecording) stringResource(R.string.home_listening_tap_to_stop) else stringResource(R.string.home_tap_and_say),
                         modifier = Modifier.padding(top = 20.dp) )
                     //translation?.let { Text(it) }
                     val micButtonScale by animateFloatAsState(
@@ -257,7 +260,7 @@ fun HomeContent(
                     ) {
                         Icon(
                             painter = if (isRecording) rememberVectorPainter(Icons.Default.Stop) else rememberVectorPainter(Icons.Default.Mic),
-                            contentDescription = if (isRecording) "Stop recording" else "Start recording",
+                            contentDescription = if (isRecording) stringResource(R.string.home_stop_recording) else stringResource(R.string.home_start_recording),
                             modifier = Modifier.size(25.dp)
                         )
 

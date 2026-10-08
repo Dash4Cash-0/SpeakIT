@@ -29,6 +29,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.example.speakit.R
 import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.ui.theme.SpeakITTheme
 import com.example.speakit.viewmodel.LibraryViewModel
@@ -72,11 +75,11 @@ fun LibraryContent(
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
-        Text(text = "Library",
+        Text(text = stringResource(R.string.nav_library),
             modifier = Modifier.padding(6.dp),
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold)
-        Text(text = "${savedSentences.size} saved",
+        Text(text = pluralStringResource(R.plurals.library_saved_count, savedSentences.size, savedSentences.size),
             modifier = Modifier.padding(6.dp),
             fontSize = 24.sp,
             fontWeight = FontWeight.ExtraBold)
@@ -200,7 +203,7 @@ private fun SavedSentenceCard(
             ) {
                 Icon(
                     imageVector = Icons.Default.PlayArrow,
-                    contentDescription = "Play"
+                    contentDescription = stringResource(R.string.library_play)
                 )
             }
         }
@@ -208,14 +211,15 @@ private fun SavedSentenceCard(
 
 }
 
+@Composable
 private fun formatDateAdded(millis: Long): String{
     val zone = ZoneId.systemDefault()
     val date = Instant.ofEpochMilli(millis).atZone(zone).toLocalDate()
     val today = LocalDate.now(zone)
 
     return when (date) {
-        today -> "TODAY"
-        today.minusDays(1) -> "YESTERDAY"
+        today -> stringResource(R.string.library_today)
+        today.minusDays(1) -> stringResource(R.string.library_yesterday)
         else -> date.format(DateTimeFormatter.ofPattern("d MMM yyyy"))
     }
 }

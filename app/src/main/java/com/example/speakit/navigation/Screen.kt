@@ -1,8 +1,10 @@
 package com.example.speakit.navigation
 
+import androidx.annotation.StringRes
+import com.example.speakit.R
 
-sealed class Screen(val route: String, val label: String) {
-    object Home : Screen("home", "Home")
-    object Library : Screen("library", "Library")
-    object Settings : Screen("settings", "Settings")
+sealed class Screen(val route: String, @StringRes val labelRes: Int) {
+    object Home : Screen("home", R.string.nav_home)
+    object Library : Screen("library", R.string.nav_library)
+    object Settings : Screen("settings", R.string.nav_settings)
 }

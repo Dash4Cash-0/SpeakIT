@@ -16,8 +16,10 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.speakit.R
 
 
 var languageList = listOf(
@@ -49,7 +51,7 @@ fun LanguageSettingRow(
             containerColor = Color(0xFFFFCDD2).copy(alpha = 0.5f),
             contentColor =  Color.Red
         ),
-            onClick = onChangeClick ) { Text("Change") }
+            onClick = onChangeClick ) { Text(stringResource(R.string.settings_change)) }
     }
 
 }

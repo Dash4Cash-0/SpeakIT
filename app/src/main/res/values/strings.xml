@@ -1,3 +1,43 @@
 <resources>
     <string name="app_name">SpeakIT</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_library">Library</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Home -->
+    <string name="home_day_streak">Day %1$d</string>
+    <string name="home_you_said">YOU SAID</string>
+    <string name="home_listening">Listening…</string>
+    <string name="home_prompt">What do you want translated today?</string>
+    <plurals name="home_also_try_forms">
+        <item quantity="one">Also try • %1$d Form</item>
+        <item quantity="other">Also try • %1$d Forms</item>
+    </plurals>
+    <string name="home_listening_tap_to_stop">Listening - Tap to stop</string>
+    <string name="home_tap_and_say">Tap and say a sentence</string>
+    <string name="home_start_recording">Start recording</string>
+    <string name="home_stop_recording">Stop recording</string>
+
+    <!-- Library -->
+    <plurals name="library_saved_count">
+        <item quantity="one">%1$d saved</item>
+        <item quantity="other">%1$d saved</item>
+    </plurals>
+    <string name="library_play">Play</string>
+    <string name="library_today">TODAY</string>
+    <string name="library_yesterday">YESTERDAY</string>
+
+    <!-- Settings -->
+    <string name="settings_speaking">Speaking:</string>
+    <string name="settings_learning">Learning:</string>
+    <string name="settings_change">Change</string>
+    <string name="settings_change_spoken_language">Change spoken language</string>
+    <string name="settings_change_learning_language">Change learning language</string>
+    <string name="settings_playback_speed">PLAYBACK SPEED</string>
+    <string name="settings_auto_play_translation">Auto-play translation</string>
+    <string name="settings_save_every_sentence">Save every sentence</string>
+    <string name="settings_suggest_related_forms">Suggest related forms</string>
+    <string name="settings_daily_practice_reminder">Daily practice reminder</string>
 </resources>

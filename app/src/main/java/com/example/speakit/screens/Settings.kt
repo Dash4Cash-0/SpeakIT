@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.example.speakit.R
 import com.example.speakit.components.ChangeLanguageDialog
 import com.example.speakit.components.LanguageSettingRow
 import com.example.speakit.navigation.BottomNavbar
@@ -90,7 +92,7 @@ fun SettingsContent(
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
-        Text(text = "Settings",
+        Text(text = stringResource(R.string.nav_settings),
             modifier = Modifier.padding(6.dp),
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold)
@@ -101,18 +103,18 @@ fun SettingsContent(
         ) {
             var openDialog by remember { mutableStateOf<LanguageDialog?>(null) }
             LanguageSettingRow(
-                label = "Speaking: ",
+                label = stringResource(R.string.settings_speaking),
                 language = sourceLanguage,
                 onChangeClick = { openDialog = LanguageDialog.Source}
             )
             LanguageSettingRow(
-                label = "Learning: ",
+                label = stringResource(R.string.settings_learning),
                 language = targetLanguage,
                 onChangeClick = {openDialog = LanguageDialog.Target}
             )
             when (openDialog){
                 LanguageDialog.Source -> ChangeLanguageDialog(
-                    title = "Change spoken language",
+                    title = stringResource(R.string.settings_change_spoken_language),
                     onDismiss = {openDialog = null},
                     onSelect = {lang ->
                         onSourceLanguageChange(lang)
@@ -120,7 +122,7 @@ fun SettingsContent(
                     }
                 )
                 LanguageDialog.Target -> ChangeLanguageDialog(
-                    title = "Change learning language",
+                    title = stringResource(R.string.settings_change_learning_language),
                     onDismiss = {openDialog = null},
                     onSelect = {lang ->
                         onTargetLanguageChange(lang)
@@ -137,7 +139,7 @@ fun SettingsContent(
                 defaultElevation = 6.dp
             )
         ) {
-            Text(text = "PLAYBACK SPEED",
+            Text(text = stringResource(R.string.settings_playback_speed),
                 modifier = Modifier
                     .padding(top = 12.dp, start = 15.dp),
                 fontSize = 11.sp,
@@ -163,10 +165,10 @@ fun SettingsContent(
                 defaultElevation = 6.dp
             )
         ) {
-            SettingsSwitches("Auto-play translation", autoPlayTranslation, onAutoPlaySwitch )
-            SettingsSwitches("Save every sentence", autoSaveSentence, onAutoSaveSentenceSwitch)
-            SettingsSwitches("Suggest related forms", suggestForms, onSuggestFormsSwitch)
-            SettingsSwitches("Daily practice reminder", dailyPracticeReminder, onDailyPracticeSwitch)
+            SettingsSwitches(stringResource(R.string.settings_auto_play_translation), autoPlayTranslation, onAutoPlaySwitch )
+            SettingsSwitches(stringResource(R.string.settings_save_every_sentence), autoSaveSentence, onAutoSaveSentenceSwitch)
+            SettingsSwitches(stringResource(R.string.settings_suggest_related_forms), suggestForms, onSuggestFormsSwitch)
+            SettingsSwitches(stringResource(R.string.settings_daily_practice_reminder), dailyPracticeReminder, onDailyPracticeSwitch)
 
         }
     }

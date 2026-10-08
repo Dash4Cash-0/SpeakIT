@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -51,7 +52,7 @@ fun BottomNavbar(navController: NavController) {
                     }
                 }
             ) {
-                Text(screen.label.uppercase(),
+                Text(stringResource(screen.labelRes).uppercase(),
                     letterSpacing = 1.5.sp,
                     fontSize = 9.sp,
                     fontWeight = FontWeight.ExtraBold,
