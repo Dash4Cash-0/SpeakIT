@@ -6,6 +6,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,18 +27,31 @@ fun SentenceDetails(
 ){
 
     SentenceDetailsContent(
+        onBack = onBack
 
     )
 }
 
 @Composable
-fun SentenceDetailsContent(){
+fun SentenceDetailsContent(
+    onBack: () -> Unit
+){
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween
-        ) { }
+        ) {
+            IconButton(
+                onClick = onBack,
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+
+                )
+            }
+        }
     }
 
 
@@ -50,6 +67,7 @@ fun SentenceDetailsPreview(){
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)){
                 SentenceDetailsContent(
+                    onBack = {}
 
                 )
             }
