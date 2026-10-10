@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -81,6 +83,37 @@ fun SentenceDetailsContent(
                 modifier = Modifier.
                 background(color = Color(0xFFFFCDD2).copy(alpha = 0.5f), shape = CircleShape)
                     .padding(horizontal = 8.dp))
+        }
+        ElevatedCard(
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+            elevation = CardDefaults.elevatedCardElevation(
+                defaultElevation = 6.dp
+            ),
+            colors = CardDefaults.cardColors(
+                containerColor = Color(0xFFC62828)
+            )
+
+        ) {
+            Column(
+                modifier = Modifier.padding(12.dp),
+
+            )
+            {
+                Text("Italian",
+                    color = Color.White)
+
+                Text("This is a placeholder sentence you have translated",
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    color = Color.White,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.ExtraBold)
+
+                Row(
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) { }
+            }
+
+
         }
     }
 }
