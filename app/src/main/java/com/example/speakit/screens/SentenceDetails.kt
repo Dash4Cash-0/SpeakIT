@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
@@ -18,6 +20,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -109,13 +112,40 @@ fun SentenceDetailsContent(
                     fontWeight = FontWeight.ExtraBold)
 
                 Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) { }
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    listOf("▶ HEAR IT", "0.7x", "REPEAT").forEach { title ->
+                        SentenceCardButtons(
+                            label = title,
+                            onClick = {}
+                        )
+                    }
+
+                }
             }
 
 
         }
     }
+}
+@Composable
+private fun SentenceCardButtons(
+    label: String,
+    onClick: () -> Unit
+){
+    TextButton(
+        modifier = Modifier.padding(8.dp),
+        onClick = onClick,
+        elevation = ButtonDefaults.buttonElevation(2.dp),
+        colors = ButtonColors(
+            containerColor = Color.White,
+            contentColor = Color.Red,
+            disabledContainerColor = Color.Unspecified,
+            disabledContentColor = Color.Unspecified)
+    ) {
+        Text(text = label, fontWeight = FontWeight.Bold)
+    }
+
 }
 
 
