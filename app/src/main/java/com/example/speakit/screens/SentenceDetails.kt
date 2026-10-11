@@ -105,7 +105,7 @@ fun SentenceDetailsContent(
                 Text("Italian",
                     color = Color.White)
 
-                Text("This is a placeholder sentence you have translated",
+                Text("Potrei avere un caffè, perfavore?",
                     modifier = Modifier.padding(vertical = 8.dp),
                     color = Color.White,
                     fontSize = 24.sp,
@@ -137,7 +137,7 @@ fun SentenceDetailsContent(
             ) {
 
                 Text("YOU SAID • ENGLISH", fontSize = 10.sp)
-                Text("This is the translated sentence text",
+                Text("Could i have a coffee, please?",
                     modifier = Modifier.padding(vertical = 8.dp),
                     fontSize = 14.sp, fontWeight = FontWeight.ExtraBold)
             }
