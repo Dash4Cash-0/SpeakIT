@@ -126,6 +126,22 @@ fun SentenceDetailsContent(
 
 
         }
+        ElevatedCard(
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+            elevation = CardDefaults.elevatedCardElevation(
+                defaultElevation = 6.dp
+            )
+        ) {
+            Column(
+                modifier = Modifier.padding(12.dp)
+            ) {
+
+                Text("YOU SAID • ENGLISH", fontSize = 10.sp)
+                Text("This is the translated sentence text",
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    fontSize = 14.sp, fontWeight = FontWeight.ExtraBold)
+            }
+        }
     }
 }
 @Composable
