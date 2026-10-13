@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -181,6 +182,44 @@ fun SentenceDetailsContent(
             }
 
         }
+        val wordPairs = listOf(
+            "Potrei" to "could i",
+            "avere" to "have",
+            "un" to "a",
+            "caffè" to "coffee, ",
+            "per favore?" to "please?"
+        )
+        ElevatedCard(
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+            elevation = CardDefaults.elevatedCardElevation(
+                defaultElevation = 6.dp
+            )
+        ) {
+            Column(
+                modifier = Modifier.padding(12.dp)
+            ) {
+                Text("WORD BY WORD", fontSize = 10.sp)
+                FlowRow(
+                    modifier = Modifier.padding(top = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    wordPairs.forEach {(word, translation) ->
+                        WordGloss(word, translation)
+
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun WordGloss(word: String, translation: String){
+    Column(horizontalAlignment = Alignment.CenterHorizontally)
+    {
+        Text(word, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold)
+        Text(translation, fontSize = 12.sp, color = Color.Gray)
     }
 }
 @Composable
