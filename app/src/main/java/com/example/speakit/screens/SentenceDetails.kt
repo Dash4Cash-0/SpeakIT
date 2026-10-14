@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -85,7 +86,7 @@ fun SentenceDetailsContent(
                         )
                     }
                 }
-                Text("Sentence",
+                Text(text = stringResource(R.string.nav_sentence),
                     modifier = Modifier.padding(horizontal = 12.dp),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.ExtraBold)
@@ -123,7 +124,9 @@ fun SentenceDetailsContent(
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    listOf("▶ HEAR IT", "0.7x", "REPEAT").forEach { title ->
+                    listOf("▶ ${stringResource(R.string.hearIt_sentence)}", "0.7x",
+                        stringResource(R.string.repeat_sentence)
+                    ).forEach { title ->
                         SentenceCardButtons(
                             label = title,
                             onClick = {}
@@ -145,7 +148,7 @@ fun SentenceDetailsContent(
                 modifier = Modifier.padding(12.dp)
             ) {
 
-                Text("YOU SAID • ENGLISH", fontSize = 10.sp)
+                Text(text = stringResource(R.string.home_you_said) + " • ENGLISH", fontSize = 10.sp)
                 Text("Could i have a coffee, please?",
                     modifier = Modifier.padding(vertical = 8.dp),
                     fontSize = 14.sp, fontWeight = FontWeight.ExtraBold)
@@ -198,7 +201,7 @@ fun SentenceDetailsContent(
             Column(
                 modifier = Modifier.padding(12.dp)
             ) {
-                Text("WORD BY WORD", fontSize = 10.sp)
+                Text(text = stringResource(R.string.wordByWord_sentence), fontSize = 10.sp)
                 FlowRow(
                     modifier = Modifier.padding(top = 8.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),

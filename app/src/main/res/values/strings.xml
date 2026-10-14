@@ -43,6 +43,9 @@
 
     <!-- SentenceDetails -->
     <string name="nav_sentence">Sentence</string>
+    <string name="wordByWord_sentence">WORD BY WORD</string>
+    <string name="hearIt_sentence">HEAR IT</string>
+    <string name="repeat_sentence">REPEAT</string>
 
 
 </resources>
