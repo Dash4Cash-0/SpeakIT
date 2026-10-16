@@ -148,10 +148,14 @@ fun SentenceDetailsContent(
                 modifier = Modifier.padding(12.dp)
             ) {
 
-                Text(text = stringResource(R.string.home_you_said) + " • ENGLISH", fontSize = 10.sp)
+                Text(text = stringResource(R.string.home_you_said) + " • ENGLISH",
+                    fontSize = 10.sp,
+                    letterSpacing = 1.5.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Gray.copy(alpha = 0.6f))
                 Text("Could i have a coffee, please?",
                     modifier = Modifier.padding(vertical = 8.dp),
-                    fontSize = 14.sp, fontWeight = FontWeight.ExtraBold)
+                    fontSize = 14.sp, fontWeight = FontWeight.ExtraBold,)
             }
         }
         var expanded by remember { mutableStateOf(false) }
@@ -201,7 +205,11 @@ fun SentenceDetailsContent(
             Column(
                 modifier = Modifier.padding(12.dp)
             ) {
-                Text(text = stringResource(R.string.wordByWord_sentence), fontSize = 10.sp)
+                Text(text = stringResource(R.string.wordByWord_sentence),
+                    fontSize = 10.sp,
+                    letterSpacing = 1.5.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Gray.copy(alpha = 0.6f))
                 FlowRow(
                     modifier = Modifier.padding(top = 8.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),

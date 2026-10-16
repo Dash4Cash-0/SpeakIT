@@ -174,7 +174,8 @@ fun HomeContent(
                             .padding(top = 12.dp, start = 15.dp),
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
-                        letterSpacing = 1.5.sp)
+                        letterSpacing = 1.5.sp,
+                        color = Color.Gray.copy(alpha = 0.6f))
                     val hasTranscription = !transcription.isNullOrBlank()
                     Text(
                         text = transcription?.takeUnless { it.isBlank() }
