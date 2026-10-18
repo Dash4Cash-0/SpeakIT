@@ -1,5 +1,10 @@
 package com.example.speakit.screens
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.MarqueeSpacing
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
@@ -10,10 +15,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,6 +38,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.speakit.R
 import com.example.speakit.ui.theme.SpeakITTheme
 import com.example.speakit.viewmodel.LoginViewModel
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun Login(
@@ -58,6 +75,7 @@ fun LoginContent(){
                     "한국어 · " +
                     "中文（普通话)",
                 fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
                 maxLines = 1,
                 modifier = Modifier.width(120.dp).basicMarquee(
                         iterations = Int.MAX_VALUE,
@@ -66,16 +84,86 @@ fun LoginContent(){
                         spacing = MarqueeSpacing(16.dp)
                     ))
         }
+        ElevatedCard(
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+            elevation = CardDefaults.elevatedCardElevation(
+                defaultElevation = 6.dp
+            ),
+            colors = CardDefaults.cardColors(
+                containerColor = Color(0xFFC62828)
+            )
+
+        ) {
+            Column(
+                modifier = Modifier.padding(12.dp),
+
+                )
+            {
+                RotatingPhrase()
+            }
+        }
     }
 
+}
 
+private data class ShowcasePhrase(
+    val from: String,
+    val to: String
+)
 
+private val showcasePhrases = listOf(
+    ShowcasePhrase("Could I have a coffee please?", "¿Me pone un café, por favor?"),
+    ShowcasePhrase("Wo ist der Bahnhof?", "Where is the station?"),
+    ShowcasePhrase("Où sont les toilettes ?", "Var är toaletten?"),
+    ShowcasePhrase("How much does this cost?", "これはいくらですか？"),
+)
+
+@Composable
+private fun RotatingPhrase(modifier: Modifier = Modifier){
+    var index by remember { mutableIntStateOf(0) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(4000.milliseconds)
+            index = (index + 1) % showcasePhrases.size
+        }
+    }
+    AnimatedContent(
+        targetState = showcasePhrases[index],
+        transitionSpec = { fadeIn(tween(600)) togetherWith fadeOut(tween(600)) },
+        label = "showcasePhrase",
+        modifier = modifier
+    ) {
+        phrase ->
+        Column {
+            Text(text = stringResource(R.string.login_you_say),
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.5.sp,
+                color = Color.White.copy(alpha = 0.8f))
+
+            Text(phrase.from, modifier = Modifier.padding(vertical = 8.dp),
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.ExtraBold)
+
+            Text(text = stringResource(R.string.login_you_hear),
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.5.sp,
+                color = Color.White.copy(alpha = 0.8f))
+
+            Text(phrase.to, modifier = Modifier.padding(vertical = 8.dp),
+                color = Color.White,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.ExtraBold)
+        }
+    }
 }
 
 
 
 
-@Preview(showBackground = true, apiLevel = 36, name = "Library preview")
+@Preview(showBackground = true, apiLevel = 36, name = "Login Preview")
 @Composable
 fun LoginPreview(){
     SpeakITTheme{

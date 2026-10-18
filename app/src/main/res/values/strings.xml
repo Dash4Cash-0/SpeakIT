@@ -8,6 +8,8 @@
     <string name="nav_settings">Settings</string>
 
     <!-- Login -->
+    <string name="login_you_say">YOU SAY</string>
+    <string name="login_you_hear">YOU HEAR</string>
 
 
     <!-- Home -->
