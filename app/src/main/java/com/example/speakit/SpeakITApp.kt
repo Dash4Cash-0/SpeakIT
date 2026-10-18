@@ -17,6 +17,7 @@ import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.navigation.Screen
 import com.example.speakit.screens.Home
 import com.example.speakit.screens.Library
+import com.example.speakit.screens.Login
 import com.example.speakit.screens.SentenceDetails
 import com.example.speakit.screens.Settings
 
@@ -36,9 +37,10 @@ fun SpeakITApp() {
         ){
             NavHost(
                 navController = navController,
-                startDestination = Screen.Home.route,
+                startDestination = Screen.Login.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
+                composable(Screen.Login.route) { Login() }
                 composable(Screen.Home.route) { Home() }
                 composable(Screen.Library.route) { Library(onSentenceClick = { id ->
                     navController.navigate(Screen.SentenceDetails.createRoute(id))
