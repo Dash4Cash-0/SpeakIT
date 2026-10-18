@@ -225,8 +225,7 @@ private fun RotatingPhrase(modifier: Modifier = Modifier){
 @Composable
 fun LoginPreview(){
     SpeakITTheme{
-        Scaffold(
-        ) { innerPadding ->
+        Scaffold { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)){
                 LoginContent(
 
