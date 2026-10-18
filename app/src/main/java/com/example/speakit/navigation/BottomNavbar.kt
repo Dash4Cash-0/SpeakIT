@@ -5,6 +5,7 @@ package com.example.speakit.navigation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -33,6 +34,7 @@ fun BottomNavbar(navController: NavController) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth()
+            .navigationBarsPadding()
             .padding(6.dp)
             .clip(RoundedCornerShape(8.dp))
     ) {
