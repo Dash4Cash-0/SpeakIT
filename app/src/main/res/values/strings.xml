@@ -2,9 +2,13 @@
     <string name="app_name">SpeakIT</string>
 
     <!-- Navigation -->
+    <string name="nav_login">Login</string>
     <string name="nav_home">Home</string>
     <string name="nav_library">Library</string>
     <string name="nav_settings">Settings</string>
+
+    <!-- Login -->
+
 
     <!-- Home -->
     <string name="home_day_streak">Day %1$d</string>

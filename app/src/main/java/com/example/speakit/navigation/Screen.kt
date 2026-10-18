@@ -4,6 +4,8 @@ import androidx.annotation.StringRes
 import com.example.speakit.R
 
 sealed class Screen(val route: String, @StringRes val labelRes: Int) {
+
+    object Login : Screen("login", R.string.)
     object Home : Screen("home", R.string.nav_home)
     object Library : Screen("library", R.string.nav_library)
     object Settings : Screen("settings", R.string.nav_settings)
