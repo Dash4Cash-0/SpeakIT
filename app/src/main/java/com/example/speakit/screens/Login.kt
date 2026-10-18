@@ -1,5 +1,6 @@
 package com.example.speakit.screens
 
+import android.graphics.drawable.shapes.OvalShape
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -15,11 +16,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -102,6 +109,50 @@ fun LoginContent(){
                 RotatingPhrase()
             }
         }
+
+        Text("Welcome to SpeakIT",
+            fontWeight = FontWeight.ExtraBold,
+            fontSize = 26.sp, modifier =
+                Modifier.padding(top = 15.dp),
+            color = Color.Black)
+        Text("Sign in to begin speaking your next language",
+            fontSize = 14.sp, modifier = Modifier.padding(top = 15.dp))
+
+
+        var email by remember { mutableStateOf("") }
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = email,
+            onValueChange = {email = it},
+            placeholder = {Text("you@youremail.com")},
+            label = {Text("Email")},
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                focusedBorderColor = Color.Red,
+                unfocusedBorderColor = Color.Black
+
+            ),
+            shape = CircleShape
+        )
+
+        var password by remember { mutableStateOf("") }
+        var passwordVisible by remember { mutableStateOf(false) }
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = password,
+            placeholder = {Text("Password")},
+            label = {Text("Password")},
+            onValueChange = {email = it},
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                focusedBorderColor = Color.Red,
+                unfocusedBorderColor = Color.Black
+
+            ),
+            shape = CircleShape
+        )
     }
 
 }
