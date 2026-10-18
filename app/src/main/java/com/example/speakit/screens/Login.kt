@@ -1,6 +1,5 @@
 package com.example.speakit.screens
 
-import android.graphics.drawable.shapes.OvalShape
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -23,6 +22,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -34,6 +34,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -119,6 +121,7 @@ fun LoginContent(){
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = email,
+            singleLine = true,
             onValueChange = {email = it},
             placeholder = {Text("you@youremail.com")},
             label = {Text("Email")},
@@ -137,9 +140,10 @@ fun LoginContent(){
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = password,
+            singleLine = true,
             placeholder = {Text("Password")},
             label = {Text("Password")},
-            onValueChange = {email = it},
+            onValueChange = {password = it},
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = Color.White,
                 unfocusedContainerColor = Color.White,
@@ -147,7 +151,14 @@ fun LoginContent(){
                 unfocusedBorderColor = Color.Black
 
             ),
-            shape = CircleShape
+            shape = CircleShape,
+            visualTransformation = if (passwordVisible) VisualTransformation.None
+            else PasswordVisualTransformation(),
+            trailingIcon = {
+                TextButton(onClick = {passwordVisible = !passwordVisible}) {
+                    Text(if(passwordVisible) "Hide" else "Show")
+                }
+            }
         )
     }
 
