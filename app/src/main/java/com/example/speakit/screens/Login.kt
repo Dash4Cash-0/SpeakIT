@@ -16,8 +16,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
@@ -155,8 +160,12 @@ fun LoginContent(){
             visualTransformation = if (passwordVisible) VisualTransformation.None
             else PasswordVisualTransformation(),
             trailingIcon = {
-                TextButton(onClick = {passwordVisible = !passwordVisible}) {
-                    Text(if(passwordVisible) "Hide" else "Show")
+                IconButton(onClick = {passwordVisible = !passwordVisible}) {
+                    Icon(if (passwordVisible) Icons.Default.VisibilityOff
+                    else Icons.Default.Visibility,
+                        contentDescription = "Passoword Visibility")
+
+
                 }
             }
         )
