@@ -196,6 +196,26 @@ fun LoginContent(){
                 Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Sign in arrow")
             }
         }
+        ElevatedButton(
+            modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.White,
+                contentColor = Color.Black
+            ),
+            onClick = {},
+            shape = CircleShape
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("CONTINUE WITH GOOGLE",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 1.5.sp)
+            }
+        }
     }
 
 }
