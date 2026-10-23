@@ -175,6 +175,20 @@ fun LoginContent(){
                 }
             }
         )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            TextButton(
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = Color.Red,
+                    containerColor = Color.Transparent
+                ),
+                onClick = {}
+            ) {
+                Text("Forgot Password?", fontSize = 14.sp)
+            }
+        }
         Spacer(modifier = Modifier.weight(1f))
 
         ElevatedButton(
