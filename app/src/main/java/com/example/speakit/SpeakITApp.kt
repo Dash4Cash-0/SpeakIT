@@ -18,6 +18,7 @@ import com.example.speakit.navigation.Screen
 import com.example.speakit.screens.Home
 import com.example.speakit.screens.Library
 import com.example.speakit.screens.Login
+import com.example.speakit.screens.Register
 import com.example.speakit.screens.SentenceDetails
 import com.example.speakit.screens.Settings
 
@@ -55,6 +56,7 @@ fun SpeakITApp() {
                         onBack = { navController.popBackStack() }
                     )
                 }
+                composable(Screen.Register.route) { Register() }
             }
         }
     }

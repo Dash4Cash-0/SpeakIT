@@ -12,4 +12,5 @@ sealed class Screen(val route: String, @StringRes val labelRes: Int) {
     object SentenceDetails : Screen("sentence/{sentenceId}", R.string.nav_sentence){
         fun createRoute(sentenceId: Long) = "sentence/$sentenceId"
     }
+    object Register : Screen("register", R.string.nav_register)
 }
