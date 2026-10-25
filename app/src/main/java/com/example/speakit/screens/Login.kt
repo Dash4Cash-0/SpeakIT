@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ButtonDefaults
@@ -59,16 +58,20 @@ import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun Login(
+    onCreateAccountClick: () -> Unit,
     viewModel: LoginViewModel = viewModel()
 ){
 
     LoginContent(
+        onCreateAccountClick = onCreateAccountClick
 
     )
 }
 
 @Composable
-fun LoginContent(){
+fun LoginContent(
+    onCreateAccountClick: () -> Unit
+){
 
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
@@ -241,7 +244,7 @@ fun LoginContent(){
                     contentColor = Color.Red,
                     containerColor = Color.Transparent
                 ),
-                onClick = {}
+                onClick = onCreateAccountClick
             ) {
                 Text(text = "Create an account")
             }
@@ -314,6 +317,7 @@ fun LoginPreview(){
         Scaffold { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)){
                 LoginContent(
+                    onCreateAccountClick = {}
 
                 )
             }

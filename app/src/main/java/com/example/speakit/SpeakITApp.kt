@@ -41,7 +41,9 @@ fun SpeakITApp() {
                 startDestination = Screen.Login.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                composable(Screen.Login.route) { Login() }
+                composable(Screen.Login.route) { Login(onCreateAccountClick = {
+                    navController.navigate(Screen.Register.route)
+                }) }
                 composable(Screen.Home.route) { Home() }
                 composable(Screen.Library.route) { Library(onSentenceClick = { id ->
                     navController.navigate(Screen.SentenceDetails.createRoute(id))
@@ -56,7 +58,7 @@ fun SpeakITApp() {
                         onBack = { navController.popBackStack() }
                     )
                 }
-                composable(Screen.Register.route) { Register() }
+                composable(Screen.Register.route) { Register(onBack = {navController.popBackStack()}) }
             }
         }
     }
