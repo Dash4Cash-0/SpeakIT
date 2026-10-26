@@ -12,6 +12,10 @@
     <string name="login_you_say">YOU SAY</string>
     <string name="login_you_hear">YOU HEAR</string>
 
+    <!-- Register -->
+    <string name="register_account">Register Account</string>
+
+
 
     <!-- Home -->
     <string name="home_day_streak">Day %1$d</string>
