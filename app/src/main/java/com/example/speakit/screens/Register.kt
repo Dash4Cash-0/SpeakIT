@@ -14,10 +14,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.speakit.ui.theme.SpeakITTheme
 
 @Composable
@@ -41,20 +45,30 @@ fun RegisterContent(
         Row(
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Surface(
-                shape = CircleShape,
-                shadowElevation = 4.dp,
-                tonalElevation = 2.dp
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-
-                IconButton(
-                    onClick = onBack,
+                Surface(
+                    shape = CircleShape,
+                    shadowElevation = 4.dp,
+                    tonalElevation = 2.dp
                 ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
-                    )
+
+                    IconButton(
+                        onClick = onBack,
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                        )
+                    }
                 }
+                Text(text = "Register Account",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold)
+
             }
         }
     }
