@@ -10,16 +10,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -67,6 +78,102 @@ fun RegisterContent(
             Text(text = stringResource( R.string.register_account),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold)
+
+        }
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center
+        ) {
+            var email by remember { mutableStateOf("") }
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = email,
+                singleLine = true,
+                onValueChange = {email = it},
+                placeholder = {Text("you@youremail.com")},
+                label = {Text("Email")},
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    focusedBorderColor = Color.Red,
+                    unfocusedBorderColor = Color.Black
+
+                ),
+                shape = CircleShape
+            )
+
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = email,
+                singleLine = true,
+                onValueChange = {email = it},
+                placeholder = {Text("you@youremail.com")},
+                label = {Text("Re-enter Email")},
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    focusedBorderColor = Color.Red,
+                    unfocusedBorderColor = Color.Black
+
+                ),
+                shape = CircleShape
+            )
+            var password by remember { mutableStateOf("") }
+            var passwordVisible by remember { mutableStateOf(false) }
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = password,
+                singleLine = true,
+                placeholder = {Text("Password")},
+                label = {Text("Password")},
+                onValueChange = {password = it},
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    focusedBorderColor = Color.Red,
+                    unfocusedBorderColor = Color.Black
+
+                ),
+                shape = CircleShape,
+                visualTransformation = if (passwordVisible) VisualTransformation.None
+                else PasswordVisualTransformation(),
+                trailingIcon = {
+                    IconButton(onClick = {passwordVisible = !passwordVisible}) {
+                        Icon(if (passwordVisible) Icons.Default.VisibilityOff
+                        else Icons.Default.Visibility,
+                            contentDescription = "Password Visibility")
+
+
+                    }
+                }
+            )
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = password,
+                singleLine = true,
+                placeholder = {Text("Password")},
+                label = {Text("Re-enter Password")},
+                onValueChange = {password = it},
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    focusedBorderColor = Color.Red,
+                    unfocusedBorderColor = Color.Black
+
+                ),
+                shape = CircleShape,
+                visualTransformation = if (passwordVisible) VisualTransformation.None
+                else PasswordVisualTransformation(),
+                trailingIcon = {
+                    IconButton(onClick = {passwordVisible = !passwordVisible}) {
+                        Icon(if (passwordVisible) Icons.Default.VisibilityOff
+                        else Icons.Default.Visibility,
+                            contentDescription = "Password Visibility")
+
+
+                    }
+                }
+            )
 
         }
     }
