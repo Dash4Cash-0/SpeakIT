@@ -46,32 +46,28 @@ fun RegisterContent(
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
+            Surface(
+                shape = CircleShape,
+                shadowElevation = 4.dp,
+                tonalElevation = 2.dp
             ) {
-                Surface(
-                    shape = CircleShape,
-                    shadowElevation = 4.dp,
-                    tonalElevation = 2.dp
+
+                IconButton(
+                    onClick = onBack,
                 ) {
-
-                    IconButton(
-                        onClick = onBack,
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
-                        )
-                    }
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                    )
                 }
-                Text(text = stringResource( R.string.register_account),
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold)
-
             }
+            Text(text = stringResource( R.string.register_account),
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold)
+
         }
     }
 
