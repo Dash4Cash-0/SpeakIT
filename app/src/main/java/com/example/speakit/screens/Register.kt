@@ -1,6 +1,8 @@
 package com.example.speakit.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,13 +12,17 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextObfuscationMode
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ButtonDefaults
@@ -40,8 +46,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -176,6 +184,21 @@ fun RegisterContent(
                     }
                 }
             )
+        var accepted by remember { mutableStateOf(false) }
+        Box(
+            modifier = Modifier
+                .size(22.dp)
+                .clip(RoundedCornerShape(6.dp))
+                .background(if (accepted) Color.Red else Color.White)
+                .border(width = 1.5.dp, color = Color.Red, shape = RoundedCornerShape(6.dp))
+                .toggleable(value = accepted, role = Role.Checkbox, onValueChange = {accepted = it}),
+            contentAlignment = Alignment.Center
+        ) {
+            if (accepted) {
+                Icon(Icons.Default.Check, contentDescription = null,
+                    tint = Color.White, modifier = Modifier.size(16.dp))
+            }
+        }
         Spacer(modifier = Modifier.weight(1f))
         ElevatedButton(
             modifier = Modifier.fillMaxWidth(),
