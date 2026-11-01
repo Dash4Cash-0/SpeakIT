@@ -191,7 +191,7 @@ fun LoginContent(
                 ),
                 onClick = {}
             ) {
-                Text("Forgot Password?", fontSize = 14.sp)
+                Text(stringResource(R.string.login_forgotPassword), fontSize = 14.sp)
             }
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -209,7 +209,7 @@ fun LoginContent(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("SIGN IN",
+                Text(text = stringResource(R.string.login_signIn),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.5.sp)
@@ -240,7 +240,7 @@ fun LoginContent(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "New to SpeakIT?", fontSize = 14.sp)
+            Text(text = stringResource(R.string.login_newTo), fontSize = 14.sp)
             TextButton(
                 colors = ButtonDefaults.buttonColors(
                     contentColor = Color.Red,
@@ -248,7 +248,7 @@ fun LoginContent(
                 ),
                 onClick = onCreateAccountClick
             ) {
-                Text(text = "Create an account")
+                Text(text = stringResource(R.string.login_createAccount))
             }
         }
     }

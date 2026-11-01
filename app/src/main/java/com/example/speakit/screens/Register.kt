@@ -31,6 +31,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -64,7 +65,9 @@ fun RegisterContent(
     onBack: () -> Unit
 ){
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -99,7 +102,9 @@ fun RegisterContent(
             text = stringResource(R.string.register_freeNoCard),
             fontSize = 10.sp,
             color = Color(0xFF49040A),
-            modifier = Modifier.background(Color(0xFFFFCDD2).copy(alpha = 0.5f), shape = CircleShape).padding(horizontal = 10.dp))
+            modifier = Modifier
+                .background(Color(0xFFFFCDD2).copy(alpha = 0.5f), shape = CircleShape)
+                .padding(horizontal = 10.dp))
 
         Text(modifier = Modifier.padding(top = 12.dp),
             text = stringResource(R.string.register_startSpeakingText),
@@ -126,7 +131,9 @@ fun RegisterContent(
             )
             val emailState = rememberTextFieldState()
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 5.dp, bottom = 5.dp),
                 state = emailState,
                 lineLimits = TextFieldLineLimits.SingleLine,
                 placeholder = {Text("you@example.com")},
@@ -179,7 +186,9 @@ fun RegisterContent(
             shape = CircleShape
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -188,6 +197,47 @@ fun RegisterContent(
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.5.sp)
                 Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Register arrow")
+            }
+        }
+        ElevatedButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 10.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.White,
+                contentColor = Color.Black
+            ),
+            onClick = {},
+            shape = CircleShape
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.register_signupGoogle),
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 1.5.sp
+                )
+            }
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = "New to SpeakIT?", fontSize = 14.sp)
+            TextButton(
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = Color.Red,
+                    containerColor = Color.Transparent
+                ),
+                onClick = {}
+            ) {
+                Text(text = "Create an account")
             }
         }
     }
