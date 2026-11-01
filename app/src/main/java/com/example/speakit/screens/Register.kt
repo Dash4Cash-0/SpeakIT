@@ -92,21 +92,28 @@ fun RegisterContent(
                 fontWeight = FontWeight.Bold)
 
         }
+
+        Spacer(modifier = Modifier.fillMaxHeight(fraction = 0.05f))
+
         Text(
             text = stringResource(R.string.register_freeNoCard),
             fontSize = 10.sp,
             color = Color(0xFF49040A),
             modifier = Modifier.background(Color(0xFFFFCDD2).copy(alpha = 0.5f), shape = CircleShape).padding(horizontal = 10.dp))
 
+        Text(modifier = Modifier.padding(top = 12.dp),
+            text = stringResource(R.string.register_startSpeakingText),
+            fontSize = 32.sp,
+            fontWeight = FontWeight.ExtraBold,
+            color = Color.Black)
         Spacer(modifier = Modifier.fillMaxHeight(fraction = 0.05f))
-            Text("NAME")
             val nameState = rememberTextFieldState()
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 state = nameState,
                 lineLimits = TextFieldLineLimits.SingleLine,
-                placeholder = {Text("you@youremail.com")},
-                label = {Text("")},
+                placeholder = {Text("Your first name")},
+                label = {Text("Name")},
                 labelPosition = TextFieldLabelPosition.Attached(alwaysMinimize = true),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedContainerColor = Color.White,
@@ -117,13 +124,12 @@ fun RegisterContent(
                 ),
                 shape = CircleShape
             )
-            Text("EMAIL")
             val emailState = rememberTextFieldState()
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp),
                 state = emailState,
                 lineLimits = TextFieldLineLimits.SingleLine,
-                placeholder = {Text("you@youremail.com")},
+                placeholder = {Text("you@example.com")},
                 label = {Text("Email")},
                 labelPosition = TextFieldLabelPosition.Attached(alwaysMinimize = true),
                 colors = OutlinedTextFieldDefaults.colors(
@@ -135,13 +141,12 @@ fun RegisterContent(
                 ),
                 shape = CircleShape
             )
-            Text("PASSWORD")
             val passwordState = rememberTextFieldState()
             var passwordVisible by remember { mutableStateOf(false) }
             OutlinedSecureTextField(
                 modifier = Modifier.fillMaxWidth(),
                 state = passwordState,
-                placeholder = {Text("Password")},
+                placeholder = {Text("***********")},
                 label = {Text("Password")},
                 labelPosition = TextFieldLabelPosition.Attached(alwaysMinimize = true),
                 colors = OutlinedTextFieldDefaults.colors(
