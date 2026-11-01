@@ -1,5 +1,6 @@
 package com.example.speakit.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -64,8 +65,9 @@ fun RegisterContent(
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+
         ) {
             Surface(
                 shape = CircleShape,
@@ -82,33 +84,37 @@ fun RegisterContent(
                     )
                 }
             }
-            Text(text = stringResource( R.string.register_account),
-                fontSize = 18.sp,
+            Text(text = stringResource(R.string.app_name),
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold)
 
         }
-        ElevatedCard(
-            modifier = Modifier.fillMaxWidth().padding(top = 8.dp).fillMaxHeight(fraction = 0.2f),
-            elevation = CardDefaults.elevatedCardElevation(
-                defaultElevation = 6.dp
-            ),
-            colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFC62828)
-            )
+        Text(
+            text = stringResource(R.string.register_freeNoCard),
+            fontSize = 10.sp,
+            color = Color(0xFF49040A),
+            modifier = Modifier.background(Color(0xFFFFCDD2).copy(alpha = 0.5f), shape = CircleShape).padding(horizontal = 10.dp))
 
-        ) {
-            Column(
-                modifier = Modifier.padding(12.dp)
-
-                )
-            {
-                Text("Create an account and start learning today",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White)
-            }
-        }
         Spacer(modifier = Modifier.fillMaxHeight(fraction = 0.05f))
+            Text("NAME")
+            var name by remember { mutableStateOf("") }
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = name,
+                singleLine = true,
+                onValueChange = {name = it},
+                placeholder = {Text("you@youremail.com")},
+                label = {Text("")},
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    focusedBorderColor = Color.Red,
+                    unfocusedBorderColor = Color.Black
+
+                ),
+                shape = CircleShape
+            )
+            Text("EMAIL")
             var email by remember { mutableStateOf("") }
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -126,23 +132,7 @@ fun RegisterContent(
                 ),
                 shape = CircleShape
             )
-
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = email,
-                singleLine = true,
-                onValueChange = {email = it},
-                placeholder = {Text("you@youremail.com")},
-                label = {Text("Re-enter Email")},
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    focusedBorderColor = Color.Red,
-                    unfocusedBorderColor = Color.Black
-
-                ),
-                shape = CircleShape
-            )
+            Text("PASSWORD")
             var password by remember { mutableStateOf("") }
             var passwordVisible by remember { mutableStateOf(false) }
             OutlinedTextField(
@@ -151,33 +141,6 @@ fun RegisterContent(
                 singleLine = true,
                 placeholder = {Text("Password")},
                 label = {Text("Password")},
-                onValueChange = {password = it},
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    focusedBorderColor = Color.Red,
-                    unfocusedBorderColor = Color.Black
-
-                ),
-                shape = CircleShape,
-                visualTransformation = if (passwordVisible) VisualTransformation.None
-                else PasswordVisualTransformation(),
-                trailingIcon = {
-                    IconButton(onClick = {passwordVisible = !passwordVisible}) {
-                        Icon(if (passwordVisible) Icons.Default.VisibilityOff
-                        else Icons.Default.Visibility,
-                            contentDescription = "Password Visibility")
-
-
-                    }
-                }
-            )
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = password,
-                singleLine = true,
-                placeholder = {Text("Password")},
-                label = {Text("Re-enter Password")},
                 onValueChange = {password = it},
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedContainerColor = Color.White,
@@ -213,7 +176,7 @@ fun RegisterContent(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("REGISTER",
+                Text(text = stringResource(R.string.register_account),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.5.sp)

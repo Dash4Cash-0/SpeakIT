@@ -13,7 +13,8 @@
     <string name="login_you_hear">YOU HEAR</string>
 
     <!-- Register -->
-    <string name="register_account">Register</string>
+    <string name="register_account">Create Account</string>
+    <string name="register_freeNoCard">FREE • NO CARD </string>
 
 
 
