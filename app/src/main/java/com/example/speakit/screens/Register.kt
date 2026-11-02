@@ -54,6 +54,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.Navigation
 import com.example.speakit.R
 import com.example.speakit.ui.theme.SpeakITTheme
 
@@ -184,20 +185,27 @@ fun RegisterContent(
                     }
                 }
             )
-        var accepted by remember { mutableStateOf(false) }
-        Box(
-            modifier = Modifier
-                .size(22.dp)
-                .clip(RoundedCornerShape(6.dp))
-                .background(if (accepted) Color.Red else Color.White)
-                .border(width = 1.5.dp, color = Color.Red, shape = RoundedCornerShape(6.dp))
-                .toggleable(value = accepted, role = Role.Checkbox, onValueChange = {accepted = it}),
-            contentAlignment = Alignment.Center
+        Row(
+           modifier = Modifier.fillMaxWidth().padding(14.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            if (accepted) {
-                Icon(Icons.Default.Check, contentDescription = null,
-                    tint = Color.White, modifier = Modifier.size(16.dp))
+            var accepted by remember { mutableStateOf(false) }
+            Box(
+                modifier = Modifier
+                    .size(22.dp)
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(if (accepted) Color.Red else Color.White)
+                    .border(width = 1.5.dp, color = Color.Red, shape = RoundedCornerShape(6.dp))
+                    .toggleable(value = accepted, role = Role.Checkbox, onValueChange = {accepted = it}),
+                contentAlignment = Alignment.Center
+            ) {
+                if (accepted) {
+                    Icon(Icons.Default.Check, contentDescription = null,
+                        tint = Color.White, modifier = Modifier.size(16.dp))
+                }
             }
+            Text(text = "I agree to the Terms and Privacy Policy")
         }
         Spacer(modifier = Modifier.weight(1f))
         ElevatedButton(
@@ -264,6 +272,13 @@ fun RegisterContent(
             }
         }
     }
+
+}
+
+@Composable
+private fun ReadTermsOrPolicy(
+    termsOrPolicy: String
+){
 
 }
 
