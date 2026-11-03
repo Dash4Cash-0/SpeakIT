@@ -51,6 +51,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -185,8 +186,14 @@ fun RegisterContent(
                     }
                 }
             )
+        Column(
+            modifier = Modifier.padding(start = 12.dp)
+        ) {
+            Text(text = "\u2713 At least 8 characters", fontSize = 10.sp)
+            Text(text = "\u2713 At least one number", fontSize = 10.sp)
+        }
         Row(
-           modifier = Modifier.fillMaxWidth().padding(14.dp),
+           modifier = Modifier.fillMaxWidth().padding(12.dp),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
