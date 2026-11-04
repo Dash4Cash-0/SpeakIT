@@ -47,7 +47,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withLink
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -207,7 +213,30 @@ fun RegisterContent(
                         tint = Color.White, modifier = Modifier.size(16.dp))
                 }
             }
-            Text(text = "I agree to the Terms and Privacy Policy")
+            val linkStyle = TextLinkStyles(
+                style = SpanStyle(
+                    color = Color.Red,
+                    fontWeight = FontWeight.Bold,
+                    textDecoration = TextDecoration.Underline
+                )
+            )
+            Text(
+                text = buildAnnotatedString {
+                    append("I agree to the ")
+                    withLink(LinkAnnotation.Clickable(tag = "terms", styles = linkStyle) {
+                        // TODO: open Terms
+                    }) {
+                        append("Terms")
+                    }
+                    append(" and ")
+                    withLink(LinkAnnotation.Clickable(tag = "privacy", styles = linkStyle) {
+                        // TODO: open Privacy Policy
+                    }) {
+                        append("Privacy Policy")
+                    }
+                },
+                fontSize = 12.sp
+            )
         }
         Spacer(modifier = Modifier.weight(1f))
         ElevatedButton(
@@ -274,13 +303,6 @@ fun RegisterContent(
             }
         }
     }
-
-}
-
-@Composable
-private fun ReadTermsOrPolicy(
-    termsOrPolicy: String
-){
 
 }
 
