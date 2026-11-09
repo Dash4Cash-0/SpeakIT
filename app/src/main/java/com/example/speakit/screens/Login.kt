@@ -205,7 +205,7 @@ fun LoginContent(
             shape = CircleShape
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -226,7 +226,7 @@ fun LoginContent(
             shape = CircleShape
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -303,7 +303,7 @@ private fun RotatingPhrase(modifier: Modifier = Modifier){
 
             Text(phrase.to, modifier = Modifier.padding(vertical = 8.dp),
                 color = Color.White,
-                fontSize = 24.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.ExtraBold)
         }
     }
