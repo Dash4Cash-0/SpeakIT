@@ -5,16 +5,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.navigation.Screen
+import com.example.speakit.navigation.bottomNavScreens
 import com.example.speakit.screens.Home
 import com.example.speakit.screens.Library
 import com.example.speakit.screens.Login
@@ -25,10 +28,12 @@ import com.example.speakit.screens.Settings
 @Composable
 fun SpeakITApp() {
     val navController = rememberNavController()
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val showBottomBar = bottomNavScreens.any { it.route == backStackEntry?.destination?.route }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        bottomBar = { BottomNavbar(navController) }
+        bottomBar = { if (showBottomBar) BottomNavbar(navController) }
     ) { innerPadding ->
         Box(
             modifier = Modifier.fillMaxSize()

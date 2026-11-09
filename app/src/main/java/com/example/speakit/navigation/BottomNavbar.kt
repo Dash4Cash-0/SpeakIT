@@ -24,7 +24,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 
-private val bottomNavScreens = listOf(Screen.Home, Screen.Library, Screen.Settings)
+val bottomNavScreens = listOf(Screen.Home, Screen.Library, Screen.Settings)
 
 @Composable
 fun BottomNavbar(navController: NavController) {
