@@ -131,7 +131,7 @@ fun LoginContent(
                 Modifier.padding(top = 15.dp),
             color = Color.Black)
         Text("Sign in to begin speaking your next language",
-            fontSize = 14.sp, modifier = Modifier.padding(top = 15.dp))
+            fontSize = 14.sp, modifier = Modifier.padding(top = 12.dp))
 
 
         val emailState = rememberTextFieldState()
