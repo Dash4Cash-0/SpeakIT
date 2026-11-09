@@ -58,6 +58,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.speakit.R
+import com.example.speakit.components.FormScreen
 import com.example.speakit.ui.theme.SpeakITTheme
 
 @Composable
@@ -75,11 +76,7 @@ fun Register(
 fun RegisterContent(
     onBack: () -> Unit
 ){
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
+    FormScreen  {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,

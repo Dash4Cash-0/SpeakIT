@@ -54,6 +54,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.speakit.R
+import com.example.speakit.components.FormScreen
 import com.example.speakit.ui.theme.SpeakITTheme
 import com.example.speakit.viewmodel.LoginViewModel
 import kotlinx.coroutines.delay
@@ -76,9 +77,7 @@ fun LoginContent(
     onCreateAccountClick: () -> Unit
 ){
 
-    Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp)
-    ) {
+    FormScreen  {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
