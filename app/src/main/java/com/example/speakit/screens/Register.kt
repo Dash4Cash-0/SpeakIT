@@ -78,7 +78,7 @@ fun RegisterContent(
 ){
     FormScreen  {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
 
@@ -114,7 +114,7 @@ fun RegisterContent(
                 .background(Color(0xFFFFCDD2).copy(alpha = 0.5f), shape = CircleShape)
                 .padding(horizontal = 10.dp))
 
-        Text(modifier = Modifier.padding(top = 12.dp),
+        Text(modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
             text = stringResource(R.string.register_startSpeakingText),
             fontSize = 32.sp,
             fontWeight = FontWeight.ExtraBold,
