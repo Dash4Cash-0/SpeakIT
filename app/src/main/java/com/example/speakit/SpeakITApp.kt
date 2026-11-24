@@ -9,6 +9,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.dropUnlessResumed
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -46,12 +48,15 @@ fun SpeakITApp() {
                 startDestination = Screen.Login.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                composable(Screen.Login.route) { Login(onCreateAccountClick = {
+                composable(Screen.Login.route) { Login(onCreateAccountClick = dropUnlessResumed {
                     navController.navigate(Screen.Register.route)
                 }) }
                 composable(Screen.Home.route) { Home() }
-                composable(Screen.Library.route) { Library(onSentenceClick = { id ->
-                    navController.navigate(Screen.SentenceDetails.createRoute(id))
+                composable(Screen.Library.route) { entry -> Library(onSentenceClick = { id ->
+                    // dropUnlessResumed only wraps () -> Unit, so check the lifecycle by hand here
+                    if (entry.lifecycle.currentState == Lifecycle.State.RESUMED) {
+                        navController.navigate(Screen.SentenceDetails.createRoute(id))
+                    }
                 }) }
                 composable(Screen.Settings.route) { Settings() }
                 composable(route = Screen.SentenceDetails.route,
@@ -60,10 +65,11 @@ fun SpeakITApp() {
                     val sentenceId = backStackEntry.arguments?.getLong("sentenceId") ?: return@composable
                     SentenceDetails(
                         sentenceId = sentenceId,
-                        onBack = { navController.popBackStack() }
+                        onBack = dropUnlessResumed { navController.popBackStack() }
                     )
                 }
-                composable(Screen.Register.route) { Register(onBack = {navController.popBackStack()}) }
+                composable(Screen.Register.route) { Register(onBack = dropUnlessResumed { navController.popBackStack() },
+                    onExistingAccount = dropUnlessResumed { navController.popBackStack() }) }
             }
         }
     }

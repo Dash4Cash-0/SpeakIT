@@ -21,6 +21,8 @@
     <string name="register_freeNoCard">FREE • NO CARD </string>
     <string name="register_startSpeakingText">Start speaking a new language today </string>
     <string name="register_signupGoogle">SIGN UP WITH GOOGLE </string>
+    <string name="register_existingAccount">Already have an account? </string>
+    <string name="register_login">Log in </string>
 
 
 

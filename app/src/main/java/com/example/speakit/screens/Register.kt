@@ -62,18 +62,21 @@ import com.example.speakit.ui.theme.SpeakITTheme
 
 @Composable
 fun Register(
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onExistingAccount: () -> Unit
 ){
 
     RegisterContent(
-        onBack = onBack
+        onBack = onBack,
+        onExistingAccount = onExistingAccount
 
     )
 }
 
 @Composable
 fun RegisterContent(
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onExistingAccount: () -> Unit
 ){
     FormScreen  {
         Row(
@@ -287,15 +290,15 @@ fun RegisterContent(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "New to SpeakIT?", fontSize = 14.sp)
+            Text(text = stringResource(R.string.register_existingAccount), fontSize = 14.sp)
             TextButton(
                 colors = ButtonDefaults.buttonColors(
                     contentColor = Color.Red,
                     containerColor = Color.Transparent
                 ),
-                onClick = {}
+                onClick = onExistingAccount
             ) {
-                Text(text = "Create an account")
+                Text(text = stringResource(R.string.register_login))
             }
         }
     }
@@ -309,7 +312,8 @@ fun RegisterPreview(){
         Scaffold { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)){
                 RegisterContent(
-                    onBack = {}
+                    onBack = {},
+                    onExistingAccount = {}
                 )
             }
         }
