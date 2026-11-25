@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ksp)
+    // No version here: KSP's version comes from the buildscript classpath in the root build.gradle.kts
+    id("com.google.devtools.ksp")
 }
 
 android {
