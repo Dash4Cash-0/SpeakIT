@@ -56,19 +56,24 @@ import androidx.compose.ui.text.withLink
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.speakit.R
 import com.example.speakit.components.FormScreen
 import com.example.speakit.ui.theme.SpeakITTheme
+import com.example.speakit.viewmodel.RegisterViewModel
 
 @Composable
-fun Register(
+fun Register(viewModel: RegisterViewModel = viewModel(),
     onBack: () -> Unit,
-    onExistingAccount: () -> Unit
+    onExistingAccount: () -> Unit,
 ){
+
+
 
     RegisterContent(
         onBack = onBack,
-        onExistingAccount = onExistingAccount
+        onExistingAccount = onExistingAccount,
+        onRegister = viewModel::registerUser
 
     )
 }
@@ -76,7 +81,8 @@ fun Register(
 @Composable
 fun RegisterContent(
     onBack: () -> Unit,
-    onExistingAccount: () -> Unit
+    onExistingAccount: () -> Unit,
+    onRegister: (String, String, String) -> Unit
 ){
     FormScreen  {
         Row(
@@ -243,7 +249,10 @@ fun RegisterContent(
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFC62828)
             ),
-            onClick = {},
+            onClick = {
+                onRegister(nameState.text.toString(), emailState.text.toString(), passwordState.text.toString())
+
+            },
             shape = CircleShape
         ) {
             Row(
@@ -313,7 +322,8 @@ fun RegisterPreview(){
             Box(modifier = Modifier.padding(innerPadding)){
                 RegisterContent(
                     onBack = {},
-                    onExistingAccount = {}
+                    onExistingAccount = {},
+                    onRegister = {_,_,_ -> }
                 )
             }
         }
