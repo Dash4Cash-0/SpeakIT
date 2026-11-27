@@ -36,6 +36,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -67,7 +68,7 @@ fun Register(viewModel: RegisterViewModel = viewModel(),
     onBack: () -> Unit,
     onExistingAccount: () -> Unit,
 ){
-
+    val uiState by viewModel.uiState.collectAsState()
 
 
     RegisterContent(
@@ -82,7 +83,8 @@ fun Register(viewModel: RegisterViewModel = viewModel(),
 fun RegisterContent(
     onBack: () -> Unit,
     onExistingAccount: () -> Unit,
-    onRegister: (String, String, String) -> Unit
+    onRegister: (String, String, String) -> Unit,
+
 ){
     FormScreen  {
         val nameState = rememberTextFieldState()

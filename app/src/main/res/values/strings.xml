@@ -39,6 +39,13 @@
     <string name="register_terms">Terms</string>
     <string name="register_and">and</string>
     <string name="register_privacyPolicy">Privacy Policy</string>
+    <string name="register_errorNetwork">No connection. Check your internet and try again.</string>
+    <string name="register_errorUnknown">Something went wrong. Please try again.</string>
+    <string name="register_errorWeakPassword">That password is too weak. Try a longer one.</string>
+    <string name="register_errorInvalidEmail">That email address doesn\'t look right.</string>
+    <string name="register_errorEmailExists">An account with this email already exists.</string>
+    <string name="register_errorRateLimit">Too many attempts. Please wait a few minutes and try again.</string>
+    <string name="register_errorSignupDisabled">Sign-up is currently unavailable.</string>
 
 
     <!-- Home -->
