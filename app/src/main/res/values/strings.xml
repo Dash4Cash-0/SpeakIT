@@ -18,12 +18,27 @@
 
     <!-- Register -->
     <string name="register_account">CREATE ACCOUNT</string>
-    <string name="register_freeNoCard">FREE • NO CARD </string>
-    <string name="register_startSpeakingText">Start speaking a new language today </string>
-    <string name="register_signupGoogle">SIGN UP WITH GOOGLE </string>
-    <string name="register_existingAccount">Already have an account? </string>
-    <string name="register_login">Log in </string>
-
+    <string name="register_freeNoCard">FREE • NO CARD</string>
+    <string name="register_startSpeakingText">Start speaking a new language today</string>
+    <string name="register_signupGoogle">SIGN UP WITH GOOGLE</string>
+    <string name="register_existingAccount">Already have an account?</string>
+    <string name="register_login">Log in</string>
+    <string name="register_back">Back</string>
+    <string name="register_name">Name</string>
+    <string name="register_yourName">Your name</string>
+    <string name="register_email">Email</string>
+    <string name="register_emailPlaceholder">you@example.com</string>
+    <string name="register_validEmail">Enter a valid email</string>
+    <string name="register_password">Password</string>
+    <string name="register_passwordPlaceholder">8+ characters</string>
+    <string name="register_showPassword">Show password</string>
+    <string name="register_hidePassword">Hide password</string>
+    <string name="register_ruleMinLength">✓ At least 8 characters</string>
+    <string name="register_ruleNumber">✓ At least one number</string>
+    <string name="register_agreeTo">I agree to the</string>
+    <string name="register_terms">Terms</string>
+    <string name="register_and">and</string>
+    <string name="register_privacyPolicy">Privacy Policy</string>
 
 
     <!-- Home -->

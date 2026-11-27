@@ -91,6 +91,19 @@ fun RegisterContent(
         var passwordVisible by remember { mutableStateOf(false) }
         var accepted by remember { mutableStateOf(false) }
 
+        val email = emailState.text.toString().trim()
+        val password = passwordState.text.toString()
+
+        val isEmailValid = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        val hasMinLength = password.length >= 8
+        val hasNumber = password.any { it.isDigit() }
+
+        val canRegister = nameState.text.isNotBlank() &&
+                isEmailValid &&
+                hasMinLength &&
+                hasNumber &&
+                accepted
+
         Row(
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -108,7 +121,7 @@ fun RegisterContent(
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
+                        contentDescription = stringResource(R.string.register_back),
                     )
                 }
             }
@@ -139,8 +152,8 @@ fun RegisterContent(
             modifier = Modifier.fillMaxWidth(),
             state = nameState,
             lineLimits = TextFieldLineLimits.SingleLine,
-            placeholder = { Text("Your first name") },
-            label = { Text("Name") },
+            placeholder = { Text(stringResource(R.string.register_yourName)) },
+            label = { Text(stringResource(R.string.register_name)) },
             labelPosition = TextFieldLabelPosition.Attached(alwaysMinimize = true),
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = Color.White,
@@ -154,10 +167,14 @@ fun RegisterContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 5.dp, bottom = 5.dp),
+            isError = email.isNotEmpty() && !isEmailValid,
+            supportingText = {
+                if (email.isNotEmpty() && !isEmailValid) Text(stringResource(R.string.register_validEmail))
+            },
             state = emailState,
             lineLimits = TextFieldLineLimits.SingleLine,
-            placeholder = { Text("you@example.com") },
-            label = { Text("Email") },
+            placeholder = { Text(stringResource(R.string.register_emailPlaceholder)) },
+            label = { Text(stringResource(R.string.register_email)) },
             labelPosition = TextFieldLabelPosition.Attached(alwaysMinimize = true),
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = Color.White,
@@ -170,8 +187,8 @@ fun RegisterContent(
         OutlinedSecureTextField(
             modifier = Modifier.fillMaxWidth(),
             state = passwordState,
-            placeholder = { Text("8+ character") },
-            label = { Text("Password") },
+            placeholder = { Text(stringResource(R.string.register_passwordPlaceholder)) },
+            label = { Text(stringResource(R.string.register_password)) },
             labelPosition = TextFieldLabelPosition.Attached(alwaysMinimize = true),
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = Color.White,
@@ -187,7 +204,10 @@ fun RegisterContent(
                     Icon(
                         imageVector = if (passwordVisible) Icons.Default.VisibilityOff
                             else Icons.Default.Visibility,
-                        contentDescription = "Password Visibility"
+                        contentDescription = stringResource(
+                            if (passwordVisible) R.string.register_hidePassword
+                            else R.string.register_showPassword
+                        )
                     )
                 }
             }
@@ -195,8 +215,16 @@ fun RegisterContent(
         Column(
             modifier = Modifier.padding(start = 12.dp)
         ) {
-            Text(text = "\u2713 At least 8 characters", fontSize = 10.sp)
-            Text(text = "\u2713 At least one number", fontSize = 10.sp)
+            Text(
+                text = stringResource(R.string.register_ruleMinLength),
+                fontSize = 10.sp,
+                color = if (hasMinLength) Color(0xFF2E7D32) else Color.Gray
+            )
+            Text(
+                text = stringResource(R.string.register_ruleNumber),
+                fontSize = 10.sp,
+                color = if (hasNumber) Color(0xFF2E7D32) else Color.Gray
+            )
         }
         Row(
             modifier = Modifier.fillMaxWidth().padding(12.dp),
@@ -224,19 +252,23 @@ fun RegisterContent(
                     textDecoration = TextDecoration.Underline
                 )
             )
+            val agreeTo = stringResource(R.string.register_agreeTo)
+            val terms = stringResource(R.string.register_terms)
+            val and = stringResource(R.string.register_and)
+            val privacyPolicy = stringResource(R.string.register_privacyPolicy)
             Text(
                 text = buildAnnotatedString {
-                    append("I agree to the ")
+                    append("$agreeTo ")
                     withLink(LinkAnnotation.Clickable(tag = "terms", styles = linkStyle) {
                         // TODO: open Terms
                     }) {
-                        append("Terms")
+                        append(terms)
                     }
-                    append(" and ")
+                    append(" $and ")
                     withLink(LinkAnnotation.Clickable(tag = "privacy", styles = linkStyle) {
                         // TODO: open Privacy Policy
                     }) {
-                        append("Privacy Policy")
+                        append(privacyPolicy)
                     }
                 },
                 fontSize = 12.sp
@@ -245,15 +277,15 @@ fun RegisterContent(
         Spacer(modifier = Modifier.weight(1f))
         ElevatedButton(
             modifier = Modifier.fillMaxWidth(),
-            enabled = accepted,
+            enabled = canRegister,
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFC62828)
             ),
             onClick = {
                 onRegister(
-                    nameState.text.toString(),
-                    emailState.text.toString(),
-                    passwordState.text.toString()
+                    nameState.text.toString().trim(),
+                    email,
+                    password
                 )
             },
             shape = CircleShape
@@ -269,7 +301,7 @@ fun RegisterContent(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.5.sp)
-                Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Register arrow")
+                Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
             }
         }
         ElevatedButton(
