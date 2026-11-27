@@ -46,6 +46,7 @@
     <string name="register_errorEmailExists">An account with this email already exists.</string>
     <string name="register_errorRateLimit">Too many attempts. Please wait a few minutes and try again.</string>
     <string name="register_errorSignupDisabled">Sign-up is currently unavailable.</string>
+    <string name="register_checkEmail">Account created! Check your email to confirm it.</string>
 
 
     <!-- Home -->

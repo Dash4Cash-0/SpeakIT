@@ -24,8 +24,10 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedSecureTextField
 import androidx.compose.material3.OutlinedTextField
@@ -74,7 +76,8 @@ fun Register(viewModel: RegisterViewModel = viewModel(),
     RegisterContent(
         onBack = onBack,
         onExistingAccount = onExistingAccount,
-        onRegister = viewModel::registerUser
+        onRegister = viewModel::registerUser,
+        uiState = uiState
 
     )
 }
@@ -84,6 +87,7 @@ fun RegisterContent(
     onBack: () -> Unit,
     onExistingAccount: () -> Unit,
     onRegister: (String, String, String) -> Unit,
+    uiState: RegisterViewModel.RegisterUiState
 
 ){
     FormScreen  {
@@ -105,6 +109,9 @@ fun RegisterContent(
                 hasMinLength &&
                 hasNumber &&
                 accepted
+
+        val isLoading = uiState is RegisterViewModel.RegisterUiState.Loading
+        val isDone = uiState is RegisterViewModel.RegisterUiState.Success
 
         Row(
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
@@ -277,9 +284,25 @@ fun RegisterContent(
             )
         }
         Spacer(modifier = Modifier.weight(1f))
+        when (uiState){
+            is RegisterViewModel.RegisterUiState.Error -> Text(
+                text = stringResource(uiState.messageRes),
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            RegisterViewModel.RegisterUiState.Success -> Text(
+                text = stringResource(R.string.register_checkEmail),
+                color = Color(0xFF2E7D32),
+                fontSize = 12.sp,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            else -> {}
+
+        }
         ElevatedButton(
             modifier = Modifier.fillMaxWidth(),
-            enabled = canRegister,
+            enabled = canRegister && !isLoading && !isDone,
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFC62828)
             ),
@@ -303,7 +326,15 @@ fun RegisterContent(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.5.sp)
-                Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
+                if (isLoading){
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        strokeWidth = 2.dp,
+                        color = LocalContentColor.current
+                    )
+                }else{
+                    Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
+                }
             }
         }
         ElevatedButton(
@@ -361,7 +392,8 @@ fun RegisterPreview(){
                 RegisterContent(
                     onBack = {},
                     onExistingAccount = {},
-                    onRegister = {_,_,_ -> }
+                    onRegister = {_,_,_ -> },
+                    uiState = RegisterViewModel.RegisterUiState.Idle
                 )
             }
         }
