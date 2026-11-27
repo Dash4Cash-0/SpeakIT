@@ -85,6 +85,12 @@ fun RegisterContent(
     onRegister: (String, String, String) -> Unit
 ){
     FormScreen  {
+        val nameState = rememberTextFieldState()
+        val emailState = rememberTextFieldState()
+        val passwordState = rememberTextFieldState()
+        var passwordVisible by remember { mutableStateOf(false) }
+        var accepted by remember { mutableStateOf(false) }
+
         Row(
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -128,70 +134,64 @@ fun RegisterContent(
             fontWeight = FontWeight.ExtraBold,
             color = Color.Black)
         Spacer(modifier = Modifier.fillMaxHeight(fraction = 0.05f))
-            val nameState = rememberTextFieldState()
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                state = nameState,
-                lineLimits = TextFieldLineLimits.SingleLine,
-                placeholder = {Text("Your first name")},
-                label = {Text("Name")},
-                labelPosition = TextFieldLabelPosition.Attached(alwaysMinimize = true),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    focusedBorderColor = Color.Red,
-                    unfocusedBorderColor = Color.Black
 
-                ),
-                shape = CircleShape
-            )
-            val emailState = rememberTextFieldState()
-            OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 5.dp, bottom = 5.dp),
-                state = emailState,
-                lineLimits = TextFieldLineLimits.SingleLine,
-                placeholder = {Text("you@example.com")},
-                label = {Text("Email")},
-                labelPosition = TextFieldLabelPosition.Attached(alwaysMinimize = true),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    focusedBorderColor = Color.Red,
-                    unfocusedBorderColor = Color.Black
-
-                ),
-                shape = CircleShape
-            )
-            val passwordState = rememberTextFieldState()
-            var passwordVisible by remember { mutableStateOf(false) }
-            OutlinedSecureTextField(
-                modifier = Modifier.fillMaxWidth(),
-                state = passwordState,
-                placeholder = {Text("***********")},
-                label = {Text("Password")},
-                labelPosition = TextFieldLabelPosition.Attached(alwaysMinimize = true),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    focusedBorderColor = Color.Red,
-                    unfocusedBorderColor = Color.Black
-
-                ),
-                shape = CircleShape,
-                textObfuscationMode = if (passwordVisible) TextObfuscationMode.Visible
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            state = nameState,
+            lineLimits = TextFieldLineLimits.SingleLine,
+            placeholder = { Text("Your first name") },
+            label = { Text("Name") },
+            labelPosition = TextFieldLabelPosition.Attached(alwaysMinimize = true),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                focusedBorderColor = Color.Red,
+                unfocusedBorderColor = Color.Black
+            ),
+            shape = CircleShape
+        )
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp, bottom = 5.dp),
+            state = emailState,
+            lineLimits = TextFieldLineLimits.SingleLine,
+            placeholder = { Text("you@example.com") },
+            label = { Text("Email") },
+            labelPosition = TextFieldLabelPosition.Attached(alwaysMinimize = true),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                focusedBorderColor = Color.Red,
+                unfocusedBorderColor = Color.Black
+            ),
+            shape = CircleShape
+        )
+        OutlinedSecureTextField(
+            modifier = Modifier.fillMaxWidth(),
+            state = passwordState,
+            placeholder = { Text("8+ character") },
+            label = { Text("Password") },
+            labelPosition = TextFieldLabelPosition.Attached(alwaysMinimize = true),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                focusedBorderColor = Color.Red,
+                unfocusedBorderColor = Color.Black
+            ),
+            shape = CircleShape,
+            textObfuscationMode = if (passwordVisible) TextObfuscationMode.Visible
                 else TextObfuscationMode.RevealLastTyped,
-                trailingIcon = {
-                    IconButton(onClick = {passwordVisible = !passwordVisible}) {
-                        Icon(if (passwordVisible) Icons.Default.VisibilityOff
-                        else Icons.Default.Visibility,
-                            contentDescription = "Password Visibility")
-
-
-                    }
+            trailingIcon = {
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    Icon(
+                        imageVector = if (passwordVisible) Icons.Default.VisibilityOff
+                            else Icons.Default.Visibility,
+                        contentDescription = "Password Visibility"
+                    )
                 }
-            )
+            }
+        )
         Column(
             modifier = Modifier.padding(start = 12.dp)
         ) {
@@ -199,11 +199,10 @@ fun RegisterContent(
             Text(text = "\u2713 At least one number", fontSize = 10.sp)
         }
         Row(
-           modifier = Modifier.fillMaxWidth().padding(12.dp),
+            modifier = Modifier.fillMaxWidth().padding(12.dp),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            var accepted by remember { mutableStateOf(false) }
             Box(
                 modifier = Modifier
                     .size(22.dp)
@@ -246,12 +245,16 @@ fun RegisterContent(
         Spacer(modifier = Modifier.weight(1f))
         ElevatedButton(
             modifier = Modifier.fillMaxWidth(),
+            enabled = accepted,
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFC62828)
             ),
             onClick = {
-                onRegister(nameState.text.toString(), emailState.text.toString(), passwordState.text.toString())
-
+                onRegister(
+                    nameState.text.toString(),
+                    emailState.text.toString(),
+                    passwordState.text.toString()
+                )
             },
             shape = CircleShape
         ) {
@@ -273,6 +276,7 @@ fun RegisterContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 10.dp),
+            enabled = accepted,
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.White,
                 contentColor = Color.Black
