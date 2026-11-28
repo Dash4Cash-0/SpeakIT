@@ -138,7 +138,7 @@ fun LoginContent(
             modifier = Modifier.fillMaxWidth(),
             state = emailState,
             lineLimits = TextFieldLineLimits.SingleLine,
-            placeholder = {Text("you@youremail.com")},
+            placeholder = {Text("you@example.com")},
             label = {Text("Email")},
             labelPosition = TextFieldLabelPosition.Attached(alwaysMinimize = true),
             colors = OutlinedTextFieldDefaults.colors(

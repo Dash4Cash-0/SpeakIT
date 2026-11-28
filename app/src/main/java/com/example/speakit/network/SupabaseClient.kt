@@ -19,7 +19,7 @@ suspend fun registerNewUser(userName: String, userEmail: String, userPassword: S
     supabase.auth.signUpWith(Email) {
         email = userEmail
         password = userPassword
-        data = buildJsonObject { put("username", userName) }
+        data = buildJsonObject { put("display_name", userName) }
     }
 }
 
