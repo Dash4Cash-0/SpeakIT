@@ -3,9 +3,13 @@ package com.example.speakit
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
@@ -20,18 +24,35 @@ import androidx.navigation.navArgument
 import com.example.speakit.navigation.BottomNavbar
 import com.example.speakit.navigation.Screen
 import com.example.speakit.navigation.bottomNavScreens
+import com.example.speakit.network.supabase
 import com.example.speakit.screens.Home
 import com.example.speakit.screens.Library
 import com.example.speakit.screens.Login
 import com.example.speakit.screens.Register
 import com.example.speakit.screens.SentenceDetails
 import com.example.speakit.screens.Settings
+import io.github.jan.supabase.auth.auth
+import io.github.jan.supabase.auth.status.SessionStatus
 
 @Composable
 fun SpeakITApp() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val showBottomBar = bottomNavScreens.any { it.route == backStackEntry?.destination?.route }
+    val sessionStatus by supabase.auth.sessionStatus.collectAsState()
+
+    if (sessionStatus is SessionStatus.Initializing){
+        Box(Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center){
+            CircularProgressIndicator()
+        }
+        return
+    }
+
+    val startRoute = remember {
+        if (sessionStatus is SessionStatus.NotAuthenticated) Screen.Login.route
+        else Screen.Home.route
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -45,7 +66,7 @@ fun SpeakITApp() {
         ){
             NavHost(
                 navController = navController,
-                startDestination = Screen.Login.route,
+                startDestination = startRoute,
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(Screen.Login.route) {
