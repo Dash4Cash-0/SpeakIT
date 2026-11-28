@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -61,16 +60,19 @@ import com.example.speakit.R
 import com.example.speakit.components.FormScreen
 import com.example.speakit.ui.theme.SpeakITTheme
 import com.example.speakit.viewmodel.LoginViewModel
-import com.example.speakit.viewmodel.RegisterViewModel
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun Login(
     onCreateAccountClick: () -> Unit,
+    onLoginSuccess: () -> Unit,
     viewModel: LoginViewModel = viewModel()
 ){
     val uiState by viewModel.uiState.collectAsState()
+    LaunchedEffect(uiState) {
+        if (uiState is LoginViewModel.LoginUiState.Success) onLoginSuccess()
+    }
     LoginContent(
         onCreateAccountClick = onCreateAccountClick,
         uiState = uiState,
@@ -219,7 +221,7 @@ fun LoginContent(
         }
         ElevatedButton(
             modifier = Modifier.fillMaxWidth(),
-            enabled = uiState !is LoginViewModel.LoginUiState.Loading,
+            enabled = !isLoading && emailState.text.isNotBlank() && passwordState.text.isNotEmpty(),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFC62828)
             ),
