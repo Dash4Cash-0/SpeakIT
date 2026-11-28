@@ -22,3 +22,10 @@ suspend fun registerNewUser(userName: String, userEmail: String, userPassword: S
         data = buildJsonObject { put("username", userName) }
     }
 }
+
+suspend fun loginUser(userEmail: String, userPassword: String) {
+    supabase.auth.signInWith(Email) {
+        email = userEmail
+        password = userPassword
+    }
+}

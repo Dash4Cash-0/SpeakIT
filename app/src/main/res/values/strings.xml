@@ -15,6 +15,11 @@
     <string name="login_newTo">New to SpeakIT?</string>
     <string name="login_signIn">SIGN IN</string>
     <string name="login_forgotPassword">Forgot Password?</string>
+    <string name="login_errorInvalidCredentials">Incorrect email or password</string>
+    <string name="login_errorUnknown">Could not login, please try again</string>
+    <string name="login_errorNetwork">No connection. Check your internet and try again.</string>
+    <string name="login_errorNotConfirmed">Please confirm your email first</string>
+    <string name="login_errorRateLimit">Too many attempts. Please wait a few minutes and try again.</string>
 
     <!-- Register -->
     <string name="register_account">CREATE ACCOUNT</string>
