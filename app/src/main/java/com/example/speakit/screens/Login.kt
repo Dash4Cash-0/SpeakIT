@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.input.TextFieldLineLimits
@@ -26,10 +27,12 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.OutlinedSecureTextField
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -39,6 +42,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -57,6 +61,7 @@ import com.example.speakit.R
 import com.example.speakit.components.FormScreen
 import com.example.speakit.ui.theme.SpeakITTheme
 import com.example.speakit.viewmodel.LoginViewModel
+import com.example.speakit.viewmodel.RegisterViewModel
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -65,19 +70,29 @@ fun Login(
     onCreateAccountClick: () -> Unit,
     viewModel: LoginViewModel = viewModel()
 ){
-
+    val uiState by viewModel.uiState.collectAsState()
     LoginContent(
-        onCreateAccountClick = onCreateAccountClick
-
+        onCreateAccountClick = onCreateAccountClick,
+        uiState = uiState,
+        onLogin = viewModel::loginCurrentUser
     )
 }
 
 @Composable
 fun LoginContent(
-    onCreateAccountClick: () -> Unit
+    onCreateAccountClick: () -> Unit,
+    uiState: LoginViewModel.LoginUiState,
+    onLogin: (String, String) -> Unit
 ){
 
     FormScreen  {
+
+        val emailState = rememberTextFieldState()
+        val passwordState = rememberTextFieldState()
+        var passwordVisible by remember { mutableStateOf(false) }
+
+        val isLoading = uiState is LoginViewModel.LoginUiState.Loading
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -133,7 +148,7 @@ fun LoginContent(
             fontSize = 14.sp, modifier = Modifier.padding(top = 12.dp))
 
 
-        val emailState = rememberTextFieldState()
+
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             state = emailState,
@@ -151,8 +166,7 @@ fun LoginContent(
             shape = CircleShape
         )
 
-        val passwordState = rememberTextFieldState()
-        var passwordVisible by remember { mutableStateOf(false) }
+
         OutlinedSecureTextField(
             modifier = Modifier.fillMaxWidth(),
             state = passwordState,
@@ -194,13 +208,24 @@ fun LoginContent(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-
+        when(uiState){
+            is LoginViewModel.LoginUiState.Error -> Text(
+                text = stringResource(uiState.messageRes),
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            else -> {}
+        }
         ElevatedButton(
             modifier = Modifier.fillMaxWidth(),
+            enabled = uiState !is LoginViewModel.LoginUiState.Loading,
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFC62828)
             ),
-            onClick = {},
+            onClick = {
+                onLogin(emailState.text.toString().trim(), passwordState.text.toString())
+            },
             shape = CircleShape
         ) {
             Row(
@@ -212,7 +237,15 @@ fun LoginContent(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.5.sp)
-                Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Sign in arrow")
+                if (isLoading){
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        strokeWidth = 2.dp,
+                        color = LocalContentColor.current
+                    )
+                }else{
+                    Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
+                }
             }
         }
         ElevatedButton(
@@ -318,7 +351,9 @@ fun LoginPreview(){
         Scaffold { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)){
                 LoginContent(
-                    onCreateAccountClick = {}
+                    onCreateAccountClick = {},
+                    uiState = LoginViewModel.LoginUiState.Idle,
+                    onLogin = {_,_ ->}
 
                 )
             }
